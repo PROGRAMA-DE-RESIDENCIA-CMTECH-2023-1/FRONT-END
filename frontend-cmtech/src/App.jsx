@@ -5,14 +5,17 @@ import { Outlet } from 'react-router-dom';
 
 //navegar entre as paginas
 import NavBar from './components/NavBar';
+import Header from './components/Header';
 
 function App() {
   return (
     <div className="App">
       <NavBar/>
-      <h1>React</h1>
-      <Outlet />
-      <p>Footer</p>
+      <div className='Content'>
+        <Outlet />
+        <h1>React</h1>
+        <p>Footer</p>
+      </div>  
     </div>
   )
 }

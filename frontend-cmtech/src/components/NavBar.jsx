@@ -13,7 +13,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 const sx = {
     height: '40px',
     width: '40px',
-    margin: '10px'
+    margin: '20px'
 }
 
 const NavBar = () => {
