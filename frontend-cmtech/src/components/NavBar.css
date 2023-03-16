@@ -1,0 +1,22 @@
+.NavBar {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 150px;
+    height: 100vh;
+    justify-content: space-between;
+
+    background-color: #4B0054;
+}
+
+.NavBar ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.NavBar li {
+    display: flex 1;
+    justify-items: center;
+    align-items: center;
+    font-size: x-large;
+}
