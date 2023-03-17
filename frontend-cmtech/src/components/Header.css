@@ -1,10 +1,10 @@
 .Header {
     display: flex;
-    height: 120px;
+    height: 20vh;
+    width: 100%;
     background-color: #F5F5F5;
     justify-content: space-between;
     align-items: center;
-    padding-right: 120px;
 }
 
 .Header .Title {
@@ -18,17 +18,16 @@
     gap: 10px;
     align-items: center;
     border-radius: 20px;
+    padding-right: 40px;
 }
 
 .Header a {
     padding-left: 8px;
     padding-right: 8px;
-    color: #63236B;
     border-radius: 20px;
 }
 
 .Header a:hover {
-    color: #4B0054;
     background-color: #A386A8;
     border-radius: 20px;
 }

@@ -1,10 +1,9 @@
 .NavBar {
     display: flex;
     flex-direction: column;
-    flex-basis: 150px;
+    flex-basis: 20vh;
     height: 100vh;
     justify-content: space-between;
-
     background-color: #4B0054;
 }
 
@@ -19,4 +18,12 @@
     justify-items: center;
     align-items: center;
     font-size: x-large;
+}
+
+.NavBar a {
+    color: #ddd
+}
+
+.NavBar a:hover {
+    color: #535bf2
 }

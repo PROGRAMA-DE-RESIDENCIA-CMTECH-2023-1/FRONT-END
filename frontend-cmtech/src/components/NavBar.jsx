@@ -11,16 +11,16 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 
 const sx = {
-    height: '40px',
-    width: '40px',
-    margin: '20px'
+    height: '4vh',
+    width: '4vh',
+    margin: '1vh'
 }
 
 const NavBar = () => {
     return (
         <nav className="NavBar">
             <ul>
-                <li><FingerprintOutlinedIcon sx={{ height: '80px', width: '80px', marginBottom: '10px' }} /></li>
+                <li><FingerprintOutlinedIcon sx={{ height: '16vh', width: '16vh', marginBottom: '4vh' }} /></li>
                 <li>
                     <Link to="/Home">
                         <HomeOutlinedIcon sx={sx} />
