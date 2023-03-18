@@ -14,24 +14,7 @@
     color: rgb(36, 36, 36)
 }
 
-.Login form {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-}
-
-.Login input {
-    background-color: #F5F5F5;
-    border-radius: 4px;
-    width: 100%;
-    color: black;
-}
-
-.Login label {
-    margin-top: 12px;
-}
-
-.Login a {
+.Login .Sublink {
     font-size: small;
     height: fit-content;
     align-self: flex-end;

@@ -17,7 +17,7 @@ const Login = () => {
                     <label htmlFor="Senha">Senha</label>
                     <input type="password" id="Senha" placeholder='Digite sua senha'/>
                 </form>
-                <Link to="/"><p>Esqueci minha senha</p></Link>
+                <Link to="/EsqueciSenha" className='Sublink'><p>Esqueci minha senha</p></Link>
                 <Button variant='contained' color='secondary' sx={{background: '#4B0054', marginTop: 4}}>Entrar</Button>
             </div>
         </div>

@@ -51,8 +51,6 @@ const NavBar = () => {
                         <SettingsOutlinedIcon sx={sx} />
                     </Link>
                 </li>
-                <li><Link to="/">Login </Link></li>
-                <li><Link to="/EsqueciSenha">Esqueci Senha</Link></li>
             </ul>
             <div>
                 <Link>

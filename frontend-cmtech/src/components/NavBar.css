@@ -5,6 +5,8 @@
     height: 100vh;
     justify-content: space-between;
     background-color: #4B0054;
+    position: sticky;
+    top: 0;
 }
 
 .NavBar ul {
