@@ -17,7 +17,7 @@ const Home = () => {
             <p>
                 <Link to="/Home/3">lista organizacoes</Link>
             </p>
-        </div>
+        </div> 
     )
 }
 

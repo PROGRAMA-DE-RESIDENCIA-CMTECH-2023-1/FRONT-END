@@ -20,7 +20,7 @@ const NavBar = () => {
     return (
         <nav className="NavBar">
             <ul>
-                <li><FingerprintOutlinedIcon sx={{ height: '16vh', width: '16vh', marginBottom: '4vh' }} /></li>
+                <li><FingerprintOutlinedIcon sx={{color:'white', height: '16vh', width: '16vh', marginBottom: '5vh' }} /></li>
                 <li>
                     <Link to="/Home">
                         <HomeOutlinedIcon sx={sx} />

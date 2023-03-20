@@ -13,7 +13,6 @@ function App() {
       <NavBar/>
       <div className='Content'>
         <Outlet />
-        <h1>React</h1>
         <p>Footer</p>
       </div>  
     </div>

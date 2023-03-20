@@ -3,7 +3,8 @@ import './EsqueciSenha.css'
 import React from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button"
+import Button from "@mui/material/Button";
+import { TextField } from '@mui/material';
 
 const EsqueciSenha = () => {
     return(
@@ -12,8 +13,7 @@ const EsqueciSenha = () => {
             <div className='Dados'>
                 <h2>Recuperar Senha</h2>
                 <form action="">
-                    <label htmlFor="email">Email de recuperação</label>
-                    <input type="text" name="email" id="email" placeholder='nome@email.com.br'/>
+                <TextField id="outlined-basic" label="Email de recuperação" variant="outlined"  sx={{width:252 , marginTop: 4}}/>
                 </form>
                 <div className='Btns'>
                     <Link to='/'>Cancelar</Link>

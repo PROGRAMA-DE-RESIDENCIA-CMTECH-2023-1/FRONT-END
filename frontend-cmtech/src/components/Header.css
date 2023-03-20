@@ -1,6 +1,6 @@
 .Header {
     display: flex;
-    height: 20vh;
+    /* height: 20vh; */
     width: 100%;
     background-color: #F5F5F5;
     align-items: center;
@@ -15,11 +15,10 @@
 }
 
 .Header .Options {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     gap: 10px;
     align-items: center;
-    border-radius: 20px;
     padding-right: 40px;
 }
 
@@ -30,6 +29,6 @@
 }
 
 .Header a:hover {
-    background-color: #A386A8;
-    border-radius: 20px;
+    background-color: #cf7dfe;
+    color: white;
 }

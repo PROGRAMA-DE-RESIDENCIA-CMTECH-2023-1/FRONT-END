@@ -24,7 +24,7 @@ const Header = (props) => {
                     </div>
                 </Link> 
             </div>
-        </div>
+        </div> 
     )
 }
 
