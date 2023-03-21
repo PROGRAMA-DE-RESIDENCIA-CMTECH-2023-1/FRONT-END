@@ -1,17 +1,23 @@
 import './EsqueciSenha.css'
 
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
 
 const EsqueciSenha = () => {
+
+    const [email, setEmail] = useState("")
     return(
         <div className='EsqueciSenha'>
             <div className='Dados'>
                 <h2>Recuperar Senha</h2>
                 <form action="">
-                <TextField className='imput' id="outlined-basic" label="E-mail de recuperação" variant="outlined"  sx={{width:395 , marginTop: 4}}/>
+                <TextField
+                    className='input' id="outlined-basic" label="E-mail de recuperação" variant="outlined" fullWidth
+                    sx={{ marginTop: 4}} value={email}
+                    onChange={e => setEmail(e.target.value)}
+                />
                 </form>
                 <div className='Btns'>
                     <Link to='/'>Cancelar</Link>
