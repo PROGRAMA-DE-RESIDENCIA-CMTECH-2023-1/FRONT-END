@@ -9,7 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const Header = (props) => {
     return (
         <div className='Header'>
-            <h2 className='Title'>{props.title}</h2>
+            <h2 className='Title'>{props.title}</h2> 
             <div className='Options'>
                 <Link>
                     <EmailOutlinedIcon/>
