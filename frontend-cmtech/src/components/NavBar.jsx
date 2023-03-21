@@ -1,6 +1,6 @@
 import './NavBar.css'
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useResolvedPath, useMatch } from "react-router-dom";
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
@@ -21,43 +21,50 @@ const NavBar = () => {
         <nav className="NavBar">
             <ul>
                 <li><FingerprintOutlinedIcon sx={{color:'white', height: '8vh', width: '8vh', marginBottom: '14vh' }} /></li>
-                <li>
-                    <Link to="/Home">
-                        <HomeOutlinedIcon sx={sx} /> 
-                    </Link>
-                </li>
-                <li>
-                    <Link>
-                        <ModeCommentOutlinedIcon sx={sx} />
-                    </Link>
-                </li>
-                <li>
-                    <Link>
-                        <AccessTimeOutlinedIcon sx={sx} />
-                    </Link>
-                </li>
-                <li>
-                    <Link>
-                        <DashboardOutlinedIcon sx={sx} />
-                    </Link>
-                </li>
-                <li>
-                    <Link>
-                        <HeadsetMicOutlinedIcon sx={sx} />
-                    </Link>
-                </li>
-                <li>
-                    <Link>
-                        <SettingsOutlinedIcon sx={sx} />
-                    </Link>
-                </li>
+                
+                <CustomLink to="/Home">
+                    <HomeOutlinedIcon sx={sx} />
+                </CustomLink>
+
+                <CustomLink to="/Chat">
+                    <ModeCommentOutlinedIcon sx={sx} />
+                </CustomLink>
+
+                <CustomLink to="/Schedule">
+                    <AccessTimeOutlinedIcon sx={sx} />
+                </CustomLink>
+
+                <CustomLink to="/Lists">
+                    <DashboardOutlinedIcon sx={sx} />
+                </CustomLink>
+
+                <CustomLink to="/Contact">
+                    <HeadsetMicOutlinedIcon sx={sx} />
+                </CustomLink>
+
+                <CustomLink to="/Settings">
+                    <SettingsOutlinedIcon sx={sx} />
+                </CustomLink>
             </ul>
             <div>
-                <Link>
+                <CustomLink to="/Help">
                     <HelpOutlineOutlinedIcon sx={sx} />
-                </Link>
+                </CustomLink>
             </div>
         </nav>
+    )
+}
+
+function CustomLink({ to, children, ...props}) {
+    const resolvedPath = useResolvedPath(to)
+    const isActive = useMatch({path: resolvedPath.pathname, end: true})
+
+    return (
+        <li className={isActive? 'active' : 'inactive'}>
+            <Link to={to}>
+                {children}
+            </Link>
+        </li>
     )
 }
 
