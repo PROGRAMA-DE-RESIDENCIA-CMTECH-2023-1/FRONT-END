@@ -11,6 +11,11 @@ import Login from "./routes/Login";
 import EsqueciSenha from "./routes/EsqueciSenha";
 import ErroPage from "./routes/ErroPage";
 import Listas from './routes/Listas';
+import Chat from './routes/Chat';
+import Schedule from './routes/Schedule'
+import Contact from './routes/Contact';
+import Settings from './routes/Settings';
+import Help from './routes/Help';
 
 /* const router = createBrowserRouter([
   {
@@ -41,6 +46,30 @@ const router = createBrowserRouter([
       {
         path: "EsqueciSenha",
         element: <EsqueciSenha/>,
+      },
+      {
+        path: "Chat",
+        element: <Chat/>,
+      },
+      {
+        path: "Schedule",
+        element: <Schedule/>,
+      },
+      {
+        path: "Lists",
+        element: <Listas/>,
+      },
+      {
+        path: "Contact",
+        element: <Contact/>,
+      },
+      {
+        path: "Settings",
+        element: <Settings/>,
+      },
+      {
+        path: "Help",
+        element: <Help/>,
       },
       //nested routes - identificador unico - dynimic routes
       {
