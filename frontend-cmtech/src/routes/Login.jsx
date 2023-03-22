@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
+import Footer from '../components/Footer';
 
 const Login = () => {
 
@@ -15,7 +16,7 @@ const Login = () => {
                 <h2>Acesso</h2>
                 <form action="">
                     <TextField
-                        className='input' id="email" label="E-mail" variant="outlined" fullWidth
+                        className='input' id="email" label="E-mail" type="email" variant="outlined" fullWidth
                         value={email} sx={{marginTop: 4}}
                         onChange={e => setEmail(e.target.value)}
                     />

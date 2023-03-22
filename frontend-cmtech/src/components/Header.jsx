@@ -15,9 +15,9 @@ const Header = (props) => {
                     <EmailOutlinedIcon/>
                 </Link>
                 <Link>
-                    <NotificationsNoneOutlinedIcon/>
+                    <NotificationsNoneOutlinedIcon/> 
                 </Link>
-                <Link to="/">
+                <Link to="/"> 
                     <div className='Options'>
                         <h3>Nome Usuário</h3>
                         <AccountCircleIcon/>

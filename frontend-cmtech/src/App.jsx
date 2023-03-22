@@ -12,10 +12,9 @@ function App() {
       <NavBar/>
       <div className='Content'>
         <Outlet />
-        <p>Footer</p>
       </div>  
     </div>
-  )
+  ) 
 }
 
 export default App;

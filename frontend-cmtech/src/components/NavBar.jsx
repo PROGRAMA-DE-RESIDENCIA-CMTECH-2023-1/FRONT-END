@@ -10,7 +10,7 @@ import HeadsetMicOutlinedIcon from '@mui/icons-material/HeadsetMicOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 
-const sx = {
+const sx = { 
     height: '4vh',
     width: '4vh',
     margin: '1vh'
@@ -51,7 +51,7 @@ const NavBar = () => {
                     <HelpOutlineOutlinedIcon sx={sx} />
                 </CustomLink>
             </div>
-        </nav>
+        </nav> 
     )
 }
 

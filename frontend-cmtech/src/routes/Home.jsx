@@ -1,24 +1,28 @@
+import './Home.css'
+
 import React from "react";
 import { Link } from "react-router-dom";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Header from "../components/Header";
+import Footer from '../components/Footer';
+
+const sx = { 
+    height: '8vh',
+    width: '8vh',
+    margin: '1vh'
+}
 
 const Home = () => {
     return(
-        <div>
+        <div className='Home'>
             <Header title="Home"/>
-            <h1>Home</h1>
-            {/* nested routes */}
-            <p>
-                <Link to="/Home/1">lista usuarios</Link>
-            </p>
-            <p>
-                <Link to="/Home/2">lista grupos</Link>
-            </p>
-            <p>
-                <Link to="/Home/3">lista organizacoes</Link>
-            </p>
+            <div className='right-div'>
+                <AccountCircleIcon sx={sx}/>
+                <h3 className='text'>Olá Nome Usuário!!</h3>
+            </div>
+            <Footer /> 
         </div> 
     )
-}
+} 
 
-export default Home;
+export default Home; 

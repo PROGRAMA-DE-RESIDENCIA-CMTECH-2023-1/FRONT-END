@@ -1,0 +1,23 @@
+.right-div {
+    float: right;
+    width: 200px;
+    margin-left: 20px;
+  }
+    
+  .Home .right-div {
+    display: inline-flex; 
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    padding-right: 300px;
+    font-weight: 300;
+    padding-top: 18%;
+    color: rgb(104, 104, 104);
+}
+
+.text{
+  font-size: medium ;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(104, 104, 104);
+  display: inline;
+}

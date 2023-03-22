@@ -17,17 +17,6 @@ import Contact from './routes/Contact';
 import Settings from './routes/Settings';
 import Help from './routes/Help';
 
-/* const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login/>,
-  },
-  {
-    path: "EsqueciSenha",
-    element: <EsqueciSenha/>,
-  },
-]) */
-
 const router = createBrowserRouter([
   {
     path: "/",
