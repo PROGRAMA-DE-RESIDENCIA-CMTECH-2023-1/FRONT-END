@@ -1,0 +1,15 @@
+.ListsPopover ul {
+    padding-inline: 12px;
+    line-height: 200%;
+    margin: 0px;
+    background-color: #cf7dfe;
+    padding-block: 1rem;
+}
+
+.ListsPopover a {
+    color: #4B0054;
+}
+
+.ListsPopover a:hover {
+    color: #f5f5f5;
+}
