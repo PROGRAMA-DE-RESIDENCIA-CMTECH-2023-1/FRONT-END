@@ -75,6 +75,10 @@ label {
   margin-top: 12px;
 }
 
+ul {
+  list-style: none;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
