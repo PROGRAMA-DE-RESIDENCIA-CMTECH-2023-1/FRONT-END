@@ -10,12 +10,15 @@ import Home from './routes/Home';
 import Login from "./routes/Login";
 import EsqueciSenha from "./routes/EsqueciSenha";
 import ErroPage from "./routes/ErroPage";
-import Listas from './routes/Listas';
+import ListaUser from './routes/ListaUser';
+import ListaOrganizations from './routes/ListaOrganizations';
 import Chat from './routes/Chat';
 import Schedule from './routes/Schedule'
 import Contact from './routes/Contact';
 import Settings from './routes/Settings';
 import Help from './routes/Help';
+import ListaDepartament from './routes/ListaDepartament';
+import ListaProfile from './routes/ListaProfile';
 
 const router = createBrowserRouter([
   {
@@ -45,8 +48,20 @@ const router = createBrowserRouter([
         element: <Schedule/>,
       },
       {
-        path: "Lists",
-        element: <Listas/>,
+        path: "ListsUser",
+        element: <ListaUser/>,
+      },
+      {
+        path: "ListsProfile",
+        element: <ListaProfile/>,
+      },
+      {
+        path: "ListsOrganizations",
+        element: <ListaOrganizations/>,
+      },
+      {
+        path: "ListsDepartament",
+        element: <ListaDepartament/>,
       },
       {
         path: "Contact",
@@ -61,10 +76,10 @@ const router = createBrowserRouter([
         element: <Help/>,
       },
       //nested routes - identificador unico - dynimic routes
-      {
+      /* {
         path: "/Home/:id",
         element: <Listas/>,
-      },
+      }, */
       // navigate para pages n existentes
       {
         path: "oldcontact",

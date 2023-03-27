@@ -56,7 +56,7 @@ const ListsPopover = ({ to, children }) => {
                         {to.map((link, i) => {
                             return (
                                 <li key={i}>
-                                    <Link to={"Lists"} onClick={handleClose}>
+                                    <Link to={link.route} onClick={handleClose}>
                                         {link.title}
                                     </Link>
                                 </li>

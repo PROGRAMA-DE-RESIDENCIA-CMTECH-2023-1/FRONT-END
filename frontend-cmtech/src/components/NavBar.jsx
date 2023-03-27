@@ -35,19 +35,22 @@ const NavBar = () => {
                     <AccessTimeOutlinedIcon sx={sx} />
                 </NavBarElement>
 
-                <ListsPopover to={[{route: "/Lists/Users", title: "Usuários"}, {route: "/Lists/Departments", title: "Departamentos"}]}/>
+                <ListsPopover to={[{route: "/ListsUser", title: "Usuários"}, 
+                                   {route: "/ListsProfile", title: "Perfis"},
+                                   {route: "/ListsOrganizations", title: "Organizações"},
+                                   {route: "/ListsDepartament", title: "Departamentos"}]}/>
 
                 <NavBarElement to="/Contact">
                     <HeadsetMicOutlinedIcon sx={sx} />
                 </NavBarElement>
 
                 <NavBarElement to="/Settings">
-                    <SettingsOutlinedIcon sx={sx} />
+                    <SettingsOutlinedIcon sx={sx} /> 
                 </NavBarElement>
             </ul>
             <div>
                 <NavBarElement to="/Help">
-                    <HelpOutlineOutlinedIcon sx={sx} />
+                    <HelpOutlineOutlinedIcon sx={sx} /> 
                 </NavBarElement>
             </div>
         </nav> 

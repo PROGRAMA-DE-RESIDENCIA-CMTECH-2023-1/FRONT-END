@@ -16,7 +16,7 @@ const Home = () => {
     return(
         <div className='Home'>
             <Header title="Home"/>
-            <div className='right-div'>
+            <div className='right-div'> 
                 <AccountCircleIcon sx={sx}/>
                 <h3 className='text'>Olá Nome Usuário!!</h3>
             </div>
