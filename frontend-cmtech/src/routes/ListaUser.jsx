@@ -5,6 +5,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import Footer from '../components/Footer';
+import AddButton from '../components/AddButton';
+import { TextField } from '@mui/material';
+import CreateUser from '../components/CreateUser';
 
 const usuarios = [
     { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI', online: true },
@@ -18,6 +21,15 @@ const ListaUser = () => {
     const [filtroNome, setFiltroNome] = useState('');
     const [filtroCargo, setFiltroCargo] = useState('');
     const [filtroSetor, setFiltroSetor] = useState('');
+    const [open, setOpen] = useState(false)
+
+    function handleClickOpen() {
+        setOpen(true);
+    };
+
+    function handleClose () {
+        setOpen(false);
+    };
 
     const filtrarUsuarios = usuario => {
         if (filtroNome && !usuario.nome.toLowerCase().includes(filtroNome.toLowerCase())) {
@@ -37,18 +49,26 @@ const ListaUser = () => {
     return (
         <div>
             <Header title="Lista Usuários" />
-            <div>
-                <label htmlFor="filtroNome">Nome: </label>
-                <input type="text" id="filtroNome" value={filtroNome} onChange={e => setFiltroNome(e.target.value)} />
-            </div>
-            <div>
-                <label htmlFor="filtroCargo">Cargo: </label>
-                <input type="text" id="filtroCargo" value={filtroCargo} onChange={e => setFiltroCargo(e.target.value)} />
-            </div>
-            <div>
-                <label htmlFor="filtroSetor">Setor: </label>
-                <input type="text" id="filtroSetor" value={filtroSetor} onChange={e => setFiltroSetor(e.target.value)} />
-            </div>
+            <AddButton handleClickOpen={handleClickOpen}>
+                <div className='filter'>
+                    <TextField
+                        className='filter' id="filtroNome" label="Nome" type="text" variant="outlined" fullWidth
+                        value={filtroNome}
+                        onChange={e => setFiltroNome(e.target.value)}
+                    />
+                    <TextField
+                        className='filter' id="filtroCargo" label="Cargo" type="text" variant="outlined" fullWidth
+                        value={filtroCargo}
+                        onChange={e => setFiltroCargo(e.target.value)}
+                    />
+                    <TextField
+                        className='filter' id="filtroSetor" label="Setor" type="text" variant="outlined" fullWidth
+                        value={filtroSetor}
+                        onChange={e => setFiltroSetor(e.target.value)}
+                    />
+                </div>
+            </AddButton>
+            <CreateUser open={open} handleClose={handleClose}/>
 
             <div className="table-container">
                 <table>

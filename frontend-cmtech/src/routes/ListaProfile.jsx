@@ -5,8 +5,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import Footer from '../components/Footer';
+import AddButton from '../components/AddButton';
+import CreateProfile from '../components/CreateProfile';
 
-const usuarios = [
+const perfis = [
     { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI' },
     { id: 2, nome: 'Maria', cargo: 'Gerente', setor: 'Marketing' },
     { id: 3, nome: 'Pedro', cargo: 'Desenvolvedor', setor: 'TI' },
@@ -15,40 +17,23 @@ const usuarios = [
 ];
 
 const ListaProfile = () => {
-    const [filtroNome, setFiltroNome] = useState('');
-    const [filtroCargo, setFiltroCargo] = useState('');
-    const [filtroSetor, setFiltroSetor] = useState('');
 
-    const filtrarUsuarios = usuario => {
-        if (filtroNome && !usuario.nome.toLowerCase().includes(filtroNome.toLowerCase())) {
-            return false;
-        }
-        if (filtroCargo && !usuario.cargo.toLowerCase().includes(filtroCargo.toLowerCase())) {
-            return false;
-        }
-        if (filtroSetor && !usuario.setor.toLowerCase().includes(filtroSetor.toLowerCase())) {
-            return false;
-        }
-        return true;
+    const [open, setOpen] = useState(false)
+
+    function handleClickOpen() {
+        setOpen(true);
     };
 
-    const usuariosFiltrados = usuarios.filter(filtrarUsuarios);
+    function handleClose () {
+        setOpen(false);
+    };
 
     return (
         <div>
             <Header title="Lista Perfis" />
-            <div>
-                <label htmlFor="filtroNome">Nome: </label>
-                <input type="text" id="filtroNome" value={filtroNome} onChange={e => setFiltroNome(e.target.value)} />
-            </div>
-            <div>
-                <label htmlFor="filtroCargo">Cargo: </label>
-                <input type="text" id="filtroCargo" value={filtroCargo} onChange={e => setFiltroCargo(e.target.value)} />
-            </div>
-            <div>
-                <label htmlFor="filtroSetor">Setor: </label>
-                <input type="text" id="filtroSetor" value={filtroSetor} onChange={e => setFiltroSetor(e.target.value)} />
-            </div>
+            
+            <AddButton handleClickOpen={handleClickOpen}/>
+            <CreateProfile open={open} handleClose={handleClose}/>
             <div className="table-container">
                 <table>
                     <thead>
@@ -60,7 +45,7 @@ const ListaProfile = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {usuariosFiltrados.map(usuario => (
+                        {perfis.map(usuario => (
                             <tr key={usuario.id}>
                                 <td>{usuario.nome}</td>
                                 <td>{usuario.cargo}</td>
