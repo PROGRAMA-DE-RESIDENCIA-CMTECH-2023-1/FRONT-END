@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         element: <Login/>,
       },
       {
-        path: "EsqueciSenha",
+        path: "EsqueciSenha", 
         element: <EsqueciSenha/>,
       },
       {
