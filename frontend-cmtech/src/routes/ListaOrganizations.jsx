@@ -15,7 +15,6 @@ const usuarios = [
 ];
 
 const ListaOrganizations = () => {
-    <Header title="Lista Organizações" />
     const [filtroNome, setFiltroNome] = useState('');
     const [filtroCargo, setFiltroCargo] = useState('');
     const [filtroSetor, setFiltroSetor] = useState('');
@@ -37,7 +36,7 @@ const ListaOrganizations = () => {
 
     return (
         <div>
-            <h1>Tabela de Organizações</h1>
+            <Header title="Lista Organizações" />
             <div>
                 <label htmlFor="filtroNome">Nome: </label>
                 <input type="text" id="filtroNome" value={filtroNome} onChange={e => setFiltroNome(e.target.value)} />
