@@ -21,3 +21,11 @@
   color: rgb(104, 104, 104);
   display: inline;
 }
+.copy{
+  padding: 10px;
+  text-align: center;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  justify-content: space-between;
+}

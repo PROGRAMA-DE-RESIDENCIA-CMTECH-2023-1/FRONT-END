@@ -11,6 +11,8 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import NavBarElement from './NavBarElement';
 import ListsPopover from './ListsPopover';
 
+/* NavBar */
+
 const sx = { 
     height: '4vh',
     width: '4vh',

@@ -5,12 +5,15 @@ import { Link } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Header from "../components/Header";
 import Footer from '../components/Footer';
+import Copyright from "../components/Copyright";
 
 const sx = { 
     height: '8vh',
     width: '8vh',
     margin: '1vh'
 }
+
+/* Página Início */
 
 const Home = () => {
     return(
@@ -20,7 +23,9 @@ const Home = () => {
                 <AccountCircleIcon sx={sx}/>
                 <h3 className='text'>Olá Nome Usuário!!</h3>
             </div>
-            <Footer /> 
+            <div className='copy'>
+            <Copyright sx={{ pt: 4 }} />
+            </div>
         </div> 
     )
 } 

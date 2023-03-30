@@ -17,6 +17,7 @@ import Container from "@mui/material/Container";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import Copyright from "../components/Copyright";
 
+/* Página Chat */
 
 export default function Chat() {
   const [messages, setMessages] = useState([

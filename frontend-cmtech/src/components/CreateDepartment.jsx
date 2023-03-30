@@ -7,6 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+/* Área de criar Departamentos*/
+
 const CreateDepartment = (props) => {
 
     const [nome, setNome] = useState('')

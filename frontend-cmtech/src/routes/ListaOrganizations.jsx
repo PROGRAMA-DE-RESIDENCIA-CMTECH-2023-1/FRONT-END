@@ -7,6 +7,9 @@ import Header from "../components/Header";
 import Footer from '../components/Footer';
 import AddButton from '../components/AddButton'
 import CreateOrg from '../components/CreateOrg';
+import Copyright from "../components/Copyright";
+
+/* Página Lista de Organizações */
 
 const orgs = [
     { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI', online: true },
@@ -64,7 +67,9 @@ const ListaOrganizations = () => {
                     </tbody>
                 </table>
             </div>
-            <Footer />
+            <div className='copy'>
+            <Copyright sx={{ pt: 4 }} />
+            </div>
         </div>
     );
 };

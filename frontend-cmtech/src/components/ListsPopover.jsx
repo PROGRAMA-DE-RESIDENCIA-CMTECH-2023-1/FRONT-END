@@ -4,6 +4,8 @@ import { Link, useResolvedPath, useMatch } from "react-router-dom";
 import Popover from '@mui/material/Popover';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 
+/* Icones da NavBar */
+
 const sx = {
     height: '4vh',
     width: '4vh',

@@ -8,6 +8,10 @@ import Footer from '../components/Footer';
 import AddButton from '../components/AddButton';
 import { TextField } from '@mui/material';
 import CreateUser from '../components/CreateUser';
+import Copyright from "../components/Copyright";
+
+
+/* Página Lista de Usuários */
 
 const usuarios = [
     { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI', online: true },
@@ -104,8 +108,9 @@ const ListaUser = () => {
                     </tbody>
                 </table>
             </div>
-
-            <Footer />
+            <div className='copy'>
+            <Copyright sx={{ pt: 4 }} />
+            </div>
         </div>
     );
 };

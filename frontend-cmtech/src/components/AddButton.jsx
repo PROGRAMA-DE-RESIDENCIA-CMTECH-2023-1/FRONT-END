@@ -1,7 +1,8 @@
 import React from "react";
 import './AddButton.css'
-
 import Button from "@mui/material/Button";
+
+/* Botão para criar departamentos, organizarções, perfis e usuários */
 
 const AddButton = (props) => {
 
@@ -19,4 +20,4 @@ const AddButton = (props) => {
     )
 }
 
-export default AddButton
+export default AddButton;

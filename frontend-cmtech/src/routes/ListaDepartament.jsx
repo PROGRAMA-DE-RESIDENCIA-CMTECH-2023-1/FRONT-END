@@ -7,6 +7,9 @@ import Header from "../components/Header";
 import Footer from '../components/Footer';
 import AddButton from '../components/AddButton';
 import CreateDepartment from '../components/CreateDepartment';
+import Copyright from "../components/Copyright";
+
+/* Página Lista de Departamentos */
 
 const departamentos = [
     { id: 1, nome: 'João', cargo: 'Analista' },
@@ -58,7 +61,9 @@ const ListaDepartament = () => {
                     </tbody>
                 </table>
             </div>
-            <Footer />
+            <div className='copy'>
+            <Copyright sx={{ pt: 4 }} />
+            </div>
         </div>
     );
 };

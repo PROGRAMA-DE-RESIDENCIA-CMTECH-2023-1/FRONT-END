@@ -7,6 +7,9 @@ import Header from "../components/Header";
 import Footer from '../components/Footer';
 import AddButton from '../components/AddButton';
 import CreateProfile from '../components/CreateProfile';
+import Copyright from "../components/Copyright";
+
+/* Página Lista de Perfis */
 
 const perfis = [
     { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI' },
@@ -61,7 +64,9 @@ const ListaProfile = () => {
                     </tbody>
                 </table>
             </div>
-            <Footer />
+            <div className='copy'>
+            <Copyright sx={{ pt: 4 }} />
+            </div>
         </div>
     );
 };

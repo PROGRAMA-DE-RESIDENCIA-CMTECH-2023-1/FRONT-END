@@ -2,6 +2,8 @@ import './Footer.css';
 
 import React from 'react';
 
+/* Rodapé do site */
+
 const Footer = () => {
   return (
     <div className='footer'>
