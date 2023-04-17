@@ -1,10 +1,8 @@
-import './Lista.css'
+import './Lists.css'
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
-import Footer from '../components/Footer';
 import AddButton from '../components/AddButton';
 import { TextField } from '@mui/material';
 import CreateUser from '../components/CreateUser';
@@ -13,7 +11,7 @@ import Copyright from "../components/Copyright";
 
 /* Página Lista de Usuários */
 
-const usuarios = [
+const user = [
     { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI', online: true },
     { id: 2, nome: 'Maria', cargo: 'Gerente', setor: 'Marketing', online: false },
     { id: 3, nome: 'Pedro', cargo: 'Desenvolvedor', setor: 'TI', online: true },
@@ -21,7 +19,7 @@ const usuarios = [
     { id: 5, nome: 'José', cargo: 'Gerente', setor: 'Vendas', online: false },
 ];
 
-const ListaUser = () => {
+const ListsUser = () => {
     const [filtroNome, setFiltroNome] = useState('');
     const [filtroCargo, setFiltroCargo] = useState('');
     const [filtroSetor, setFiltroSetor] = useState('');
@@ -48,7 +46,7 @@ const ListaUser = () => {
         return true;
     };
 
-    const usuariosFiltrados = usuarios.filter(filtrarUsuarios);
+    const usuariosFiltrados = user.filter(filtrarUsuarios);
 
     return (
         <div>
@@ -115,4 +113,4 @@ const ListaUser = () => {
     );
 };
 
-export default ListaUser;
+export default ListsUser;

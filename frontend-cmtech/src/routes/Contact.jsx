@@ -1,7 +1,6 @@
 import React from "react";
 
 import Header from "../components/Header";
-import Footer from '../components/Footer';
 import Copyright from "../components/Copyright";
 
 
@@ -19,4 +18,4 @@ const Contact = () => {
     )
 }
 
-export default Contact
+export default Contact;

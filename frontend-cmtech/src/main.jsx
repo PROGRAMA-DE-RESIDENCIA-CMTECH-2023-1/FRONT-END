@@ -8,17 +8,17 @@ import{ createBrowserRouter, RouterProvider, Navigate} from "react-router-dom";
 
 import Home from './routes/Home';
 import Login from "./routes/Login";
-import EsqueciSenha from "./routes/EsqueciSenha";
+import ForgotPassword from './routes/forgotPassword';
 import ErroPage from "./routes/ErroPage";
-import ListaUser from './routes/ListaUser';
-import ListaOrganizations from './routes/ListaOrganizations';
+import ListaUser from './routes/ListsUser';
+import ListaOrganizations from './routes/ListsOrganizations';
 import Chat from './routes/Chat';
 import Schedule from './routes/Schedule'
 import Contact from './routes/Contact';
 import Settings from './routes/Settings';
 import Help from './routes/Help';
-import ListaDepartament from './routes/ListaDepartament';
-import ListaProfile from './routes/ListaProfile';
+import ListaDepartament from './routes/ListsDepartament';
+import ListaProfile from './routes/ListsProfile';
 
 const router = createBrowserRouter([
   {
@@ -36,8 +36,8 @@ const router = createBrowserRouter([
         element: <Login/>,
       },
       {
-        path: "EsqueciSenha", 
-        element: <EsqueciSenha/>,
+        path: "ForgotPassword",
+        element: <ForgotPassword/>,
       },
       {
         path: "Chat",
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
         path: "/Home/:id",
         element: <Listas/>,
       }, */
-      // navigate para pages n existentes
+      // navigate para pages não existentes
       {
         path: "oldcontact",
         element: <Navigate to="/Home"/>

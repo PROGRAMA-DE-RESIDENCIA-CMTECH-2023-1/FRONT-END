@@ -1,61 +1,53 @@
-import './Lista.css'
+import './Lists.css'
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
-import Footer from '../components/Footer';
-import AddButton from '../components/AddButton'
-import CreateOrg from '../components/CreateOrg';
+import AddButton from '../components/AddButton';
+import CreateDepartment from '../components/CreateDepartment';
 import Copyright from "../components/Copyright";
 
-/* Página Lista de Organizações */
+/* Página Lista de Departamentos */
 
-const orgs = [
-    { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI', online: true },
-    { id: 2, nome: 'Maria', cargo: 'Gerente', setor: 'Marketing', online: false },
-    { id: 3, nome: 'Pedro', cargo: 'Desenvolvedor', setor: 'TI', online: true },
-    { id: 4, nome: 'Ana', cargo: 'Analista', setor: 'Contabilidade', online: true },
-    { id: 5, nome: 'José', cargo: 'Gerente', setor: 'Vendas', online: false },
+const departament = [
+    { id: 1, nome: 'João', cargo: 'Analista' },
+    { id: 2, nome: 'Maria', cargo: 'Gerente' },
+    { id: 3, nome: 'Pedro', cargo: 'Desenvolvedor' },
+    { id: 4, nome: 'Ana', cargo: 'Analista' },
+    { id: 5, nome: 'José', cargo: 'Gerente' },
 ];
 
-const ListaOrganizations = () => {
-
+const ListsDepartament = () => {
     const [open, setOpen] = useState(false)
 
     function handleClickOpen() {
-        setOpen(true);
-    };
+        setOpen(true)
+    }
 
-    function handleClose () {
-        setOpen(false);
-    };
+    function handleClose() {
+        setOpen(false)
+    }
 
     return (
         <div>
-            <Header title="Lista Organizações" />
-
+            <Header title="Lista Departamentos" />
             <AddButton handleClickOpen={handleClickOpen}/>
-            <CreateOrg open={open} handleClose={handleClose}/>
+            <CreateDepartment open={open} handleClose={handleClose}/>
             
             <div className="table-container">
                 <table>
                     <thead>
                         <tr>
+                            <th>Departamento</th>
                             <th>Organização</th>
-                            <th>Telefone</th>
-                            <th>Segmento</th>
-                            <th>Grupo</th>
-                            <th></th>
+                            <th />
                         </tr>
                     </thead>
                     <tbody>
-                        {orgs.map(usuario => (
+                        {departament.map(usuario => (
                             <tr key={usuario.id}>
                                 <td>{usuario.nome}</td>
                                 <td>{usuario.cargo}</td>
-                                <td>{usuario.setor}</td>
-                                <td>{usuario.online ? 'Online' : 'Offline'}</td>
                                 <td>
                                     <div className='icones'>
                                         <EditIcon />
@@ -74,4 +66,4 @@ const ListaOrganizations = () => {
     );
 };
 
-export default ListaOrganizations;
+export default ListsDepartament;

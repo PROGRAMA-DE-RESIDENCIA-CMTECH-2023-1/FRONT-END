@@ -1,19 +1,17 @@
-import './EsqueciSenha.css'
+import './ForgotPassword.css'
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
-import Footer from '../components/Footer';
-import Copyright from "../components/Copyright";
 
 /* Página Esqueci Senha */
 
-const EsqueciSenha = () => {
+const ForgotPassword = () => {
 
     const [email, setEmail] = useState("")
     return(
-        <div className='EsqueciSenha'>
+        <div className='ForgotPassword '>
             <div className='Dados'>
                 <h2>Recuperar Senha</h2>
                 <form action="">
@@ -32,4 +30,4 @@ const EsqueciSenha = () => {
     )
 }
 
-export default EsqueciSenha;
+export default ForgotPassword;

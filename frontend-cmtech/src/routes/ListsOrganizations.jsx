@@ -1,25 +1,25 @@
-import './Lista.css'
+import './Lists.css'
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import Footer from '../components/Footer';
-import AddButton from '../components/AddButton';
-import CreateProfile from '../components/CreateProfile';
+import AddButton from '../components/AddButton'
+import CreateOrg from '../components/CreateOrg';
 import Copyright from "../components/Copyright";
 
-/* Página Lista de Perfis */
+/* Página Lista de Organizações */
 
-const perfis = [
-    { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI' },
-    { id: 2, nome: 'Maria', cargo: 'Gerente', setor: 'Marketing' },
-    { id: 3, nome: 'Pedro', cargo: 'Desenvolvedor', setor: 'TI' },
-    { id: 4, nome: 'Ana', cargo: 'Analista', setor: 'Contabilidade' },
-    { id: 5, nome: 'José', cargo: 'Gerente', setor: 'Vendas' },
+const orgs = [
+    { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI', online: true },
+    { id: 2, nome: 'Maria', cargo: 'Gerente', setor: 'Marketing', online: false },
+    { id: 3, nome: 'Pedro', cargo: 'Desenvolvedor', setor: 'TI', online: true },
+    { id: 4, nome: 'Ana', cargo: 'Analista', setor: 'Contabilidade', online: true },
+    { id: 5, nome: 'José', cargo: 'Gerente', setor: 'Vendas', online: false },
 ];
 
-const ListaProfile = () => {
+const ListsOrganizations = () => {
 
     const [open, setOpen] = useState(false)
 
@@ -33,26 +33,29 @@ const ListaProfile = () => {
 
     return (
         <div>
-            <Header title="Lista Perfis" />
-            
+            <Header title="Lista Organizações" />
+
             <AddButton handleClickOpen={handleClickOpen}/>
-            <CreateProfile open={open} handleClose={handleClose}/>
+            <CreateOrg open={open} handleClose={handleClose}/>
+            
             <div className="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Perfil</th>
-                            <th>Departamento</th>
                             <th>Organização</th>
+                            <th>Telefone</th>
+                            <th>Segmento</th>
+                            <th>Grupo</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {perfis.map(usuario => (
+                        {orgs.map(usuario => (
                             <tr key={usuario.id}>
                                 <td>{usuario.nome}</td>
                                 <td>{usuario.cargo}</td>
-                                <td>{usuario.setor} </td>
+                                <td>{usuario.setor}</td>
+                                <td>{usuario.online ? 'Online' : 'Offline'}</td>
                                 <td>
                                     <div className='icones'>
                                         <EditIcon />
@@ -71,4 +74,4 @@ const ListaProfile = () => {
     );
 };
 
-export default ListaProfile;
+export default ListsOrganizations;
