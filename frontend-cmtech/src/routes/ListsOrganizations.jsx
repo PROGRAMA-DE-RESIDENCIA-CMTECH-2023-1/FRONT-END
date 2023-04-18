@@ -1,42 +1,75 @@
 import './Lists.css'
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
-import Footer from '../components/Footer';
 import AddButton from '../components/AddButton'
-import CreateOrg from '../components/CreateOrg';
+import InputOrg from '../components/InputOrg';
 import Copyright from "../components/Copyright";
+import UpdateButton from '../components/UpdateButton';
 
 /* Página Lista de Organizações */
 
 const orgs = [
-    { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI', online: true },
-    { id: 2, nome: 'Maria', cargo: 'Gerente', setor: 'Marketing', online: false },
-    { id: 3, nome: 'Pedro', cargo: 'Desenvolvedor', setor: 'TI', online: true },
-    { id: 4, nome: 'Ana', cargo: 'Analista', setor: 'Contabilidade', online: true },
-    { id: 5, nome: 'José', cargo: 'Gerente', setor: 'Vendas', online: false },
+    { id: 1, name: 'CMTech', phone: '+55 (81) 0 0000-0000', segment: 'Tecnologia da Informação', group: 'CMTech' },
+    { id: 2, name: 'CMTech', phone: '+55 (81) 0 0000-0000', segment: 'Tecnologia da Informação', group: 'CMTech' },
+    { id: 3, name: 'CMTech', phone: '+55 (81) 0 0000-0000', segment: 'Tecnologia da Informação', group: 'CMTech' },
+    { id: 4, name: 'CMTech', phone: '+55 (81) 0 0000-0000', segment: 'Tecnologia da Informação', group: 'CMTech' },
+    { id: 5, name: 'CMTech', phone: '+55 (81) 0 0000-0000', segment: 'Tecnologia da Informação', group: 'CMTech' }
 ];
 
 const ListsOrganizations = () => {
 
-    const [open, setOpen] = useState(false)
+    const [openCreate, setOpenCreate] = useState(false)
+    const [openUpdate, setOpenUpdate] = useState(false)
+    const [orgData, setOrgData] = useState({id: 0, name: '', phone: '', segment: '', group: ''})
 
-    function handleClickOpen() {
-        setOpen(true);
+    function handleClickOpenCreate() {
+        setOpenCreate(true);
     };
 
-    function handleClose () {
-        setOpen(false);
+    function handleCloseCreate () {
+        setOpenCreate(false);
+    };
+
+    function handleClickOpenUpdate(org) {
+        setOrgData({
+            id: org.id,
+            name: org.name,
+            phone: org.phone,
+            segment: org.segment,
+            group: org.group
+        })
+        setOpenUpdate(true);
+    };
+
+    function handleCloseUpdate () {
+        setOrgData({
+            id: 0,
+            name: '',
+            phone: '',
+            segment: '',
+            group: ''
+        })
+        setOpenUpdate(false);
     };
 
     return (
         <div>
             <Header title="Lista Organizações" />
 
-            <AddButton handleClickOpen={handleClickOpen}/>
-            <CreateOrg open={open} handleClose={handleClose}/>
+            <InputOrg
+                open={openCreate}
+                handleClose={handleCloseCreate}
+                id={0} name='' phone='' segment='' group=''
+                btnName="Adicionar"
+            />
+            <InputOrg
+                open={openUpdate}
+                handleClose={handleCloseUpdate}
+                id={orgData.id} name={orgData.name} phone={orgData.phone} segment={orgData.segment} group={orgData.group}
+            />
+
+            <AddButton handleClickOpen={handleClickOpenCreate}/>
             
             <div className="table-container">
                 <table>
@@ -50,15 +83,17 @@ const ListsOrganizations = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {orgs.map(usuario => (
-                            <tr key={usuario.id}>
-                                <td>{usuario.nome}</td>
-                                <td>{usuario.cargo}</td>
-                                <td>{usuario.setor}</td>
-                                <td>{usuario.online ? 'Online' : 'Offline'}</td>
+                        {orgs.map(org => (
+                            <tr key={org.id}>
+                                <td>{org.name}</td>
+                                <td>{org.phone}</td>
+                                <td>{org.segment}</td>
+                                <td>{org.group}</td>
                                 <td>
                                     <div className='icones'>
-                                        <EditIcon />
+                                        <UpdateButton
+                                            handleClickOpen={_ => handleClickOpenUpdate(org)}
+                                        />
                                         <DeleteIcon />
                                     </div>
                                 </td>

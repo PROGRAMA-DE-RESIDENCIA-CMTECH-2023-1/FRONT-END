@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -6,18 +6,25 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import InputButton from "./InputButton"
 
 /* Área de criar Perfis*/
 
-const CreateProfile = (props) => {
+const InputProfile = (props) => {
 
-    const [nome, setNome] = useState('')
-    const [department, setDepartment] = useState('')
-    const [org, setOrg] = useState('')
+    const [name, setName] = useState(props.name)
+    const [department, setDepartment] = useState(props.department)
+    const [org, setOrg] = useState(props.org)
 
     function handleClose() {
         props.handleClose()
     }
+
+    useEffect(() => {
+        setName(props.name)
+        setDepartment(props.department)
+        setOrg(props.org)
+    }, [props.open])
 
     return (
         <div>
@@ -28,13 +35,13 @@ const CreateProfile = (props) => {
                 <DialogContent>
                     <TextField
                         id="nome" label="Nome do Perfil" type="text" variant="outlined" fullWidth
-                        value={nome} sx={{ marginTop: 4 }}
-                        onChange={e => setNome(e.target.value)}
+                        value={name} sx={{ marginTop: 4 }}
+                        onChange={e => setName(e.target.value)}
                     />
                     <TextField
-                        id="department" label="Departamento" type="" variant="outlined" fullWidth
+                        id="department" label="Departamento" type="text" variant="outlined" fullWidth
                         value={department} sx={{ marginTop: 4 }}
-                        onChange={e => setDepartamento(e.target.value)}
+                        onChange={e => setDepartment(e.target.value)}
                     />
                     <TextField
                         id="org" label="Organização" type="text" variant="outlined" fullWidth
@@ -50,17 +57,11 @@ const CreateProfile = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <Button
-                        variant='contained' color='secondary'
-                        sx={{ background: '#4B0054', marginTop: 4, marginRight: 12, width: 150 }}
-                        onClick={handleClose}
-                    >
-                        Fechar
-                    </Button>
+                    <InputButton handleClose={handleClose} btnName={props.btnName}/>
                 </DialogActions>
             </Dialog>
         </div>
     )
 }
 
-export default CreateProfile
+export default InputProfile

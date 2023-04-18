@@ -6,6 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import InputButton from "./InputButton";
 
 /* Área de criar Usuários*/
 
@@ -52,13 +53,7 @@ const CreateUser = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <Button
-                        variant='contained' color='secondary'
-                        sx={{ background: '#4B0054', marginTop: 4, marginRight: 12, width: 150 }}
-                        onClick={handleClose}
-                    >
-                        Fechar
-                    </Button>
+                    <InputButton handleClose={handleClose} btnName='Adicionar'/>
                 </DialogActions>
             </Dialog>
         </div>
