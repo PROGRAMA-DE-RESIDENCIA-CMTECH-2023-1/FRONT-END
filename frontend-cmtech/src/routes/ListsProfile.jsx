@@ -24,7 +24,7 @@ const ListsProfile = () => {
     const [profileData, setProfileData] = useState({id:0, name:'', department:'', org:''})
 
     function handleClickOpenCreate() {
-        setOpenCreate(true);
+        setOpenCreate(true); 
     };
 
     function handleCloseCreate () {

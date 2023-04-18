@@ -10,17 +10,21 @@ import InputButton from "./InputButton";
 
 /* Área de criar Usuários*/
 
-const CreateUser = (props) => {
+const InputUser = (props) => {
 
-    const [nome, setNome] = useState('')
-    const [email, setEmail] = useState('')
-    const [empresa, setEmpresa] = useState('')
-    const [cargo, setCargo] = useState('')
-    const [setor, setSetor] = useState('')
+    const [nome, setNome] = useState(props.name)
+    const [email, setEmail] = useState(props.email)
+    const [empresa, setEmpresa] = useState(props.empresa)
 
     function handleClose() {
         props.handleClose()
     }
+
+    useEffect(() => {
+        setName(props.name)
+        setEmail(props.email)
+        setOrg(props.empresa)
+    }, [props.open])
 
     return (
         <div>
@@ -60,4 +64,4 @@ const CreateUser = (props) => {
     )
 }
 
-export default CreateUser
+export default InputUser

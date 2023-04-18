@@ -46,6 +46,27 @@ const ListsUser = () => {
         return true;
     };
 
+    function handleClickOpenUpdate(usuario) {
+        setProfileData({
+            id: usuario.id,
+            name: usuario.name,
+            department: usuario.department,
+            org: usuario.org
+        })
+        setOpenUpdate(true);
+    };
+
+    function handleCloseUpdate () {
+        setProfileData({
+            id: 0,
+            name: '',
+            department: '',
+            org: ''
+        })
+        setOpenUpdate(false);
+    };
+
+
     const usuariosFiltrados = user.filter(filtrarUsuarios);
 
     return (
@@ -97,7 +118,9 @@ const ListsUser = () => {
                                 </td>
                                 <td>
                                     <div className='icones'>
-                                        <EditIcon />
+                                    <UpdateButton
+                                            handleClickOpen={_ => handleClickOpenUpdate(profile)}
+                                        />
                                         <DeleteIcon />
                                     </div>
                                 </td>

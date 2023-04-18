@@ -28,6 +28,24 @@ const ListsDepartament = () => {
         setOpen(false)
     }
 
+    function handleClickOpenUpdate(departament) {
+        setProfileData({
+            id: departament.id,
+            name: departament.name,
+            org: departament.org
+        })
+        setOpenUpdate(true);
+    };
+
+    function handleCloseUpdate () {
+        setProfileData({
+            id: 0,
+            name: '',
+            org: ''
+        })
+        setOpenUpdate(false);
+    };
+
     return (
         <div>
             <Header title="Lista Departamentos" />
@@ -50,7 +68,9 @@ const ListsDepartament = () => {
                                 <td>{usuario.cargo}</td>
                                 <td>
                                     <div className='icones'>
-                                        <EditIcon />
+                                    <UpdateButton
+                                            handleClickOpen={_ => handleClickOpenUpdate(profile)}
+                                        />
                                         <DeleteIcon />
                                     </div>
                                 </td>

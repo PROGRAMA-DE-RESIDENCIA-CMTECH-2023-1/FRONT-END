@@ -11,7 +11,7 @@ import InputButton from "./InputButton"
 /* Área de criar Perfis*/
 
 const InputProfile = (props) => {
-
+ 
     const [name, setName] = useState(props.name)
     const [department, setDepartment] = useState(props.department)
     const [org, setOrg] = useState(props.org)
@@ -57,7 +57,7 @@ const InputProfile = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <InputButton handleClose={handleClose} btnName={props.btnName}/>
+                    <InputButton handleClose={handleClose} btnName={"Adicionar"}/>
                 </DialogActions>
             </Dialog>
         </div>

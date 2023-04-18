@@ -22,9 +22,9 @@ const ListsOrganizations = () => {
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
     const [orgData, setOrgData] = useState({id: 0, name: '', phone: '', segment: '', group: ''})
-
+ 
     function handleClickOpenCreate() {
-        setOpenCreate(true);
+        setOpenCreate(true); 
     };
 
     function handleCloseCreate () {

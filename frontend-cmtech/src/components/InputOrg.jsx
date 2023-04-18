@@ -64,7 +64,7 @@ const InputOrg = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <InputButton handleClose={handleClose} btnName={props.btnName}/>
+                    <InputButton handleClose={handleClose} btnName={"Adicionar"} />
                 </DialogActions>
             </Dialog>
         </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
+import DialogActions from '@mui/material/DialogActions'; 
 import DialogContent from '@mui/material/DialogContent';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -10,14 +10,19 @@ import InputButton from "./InputButton";
 
 /* Área de criar Departamentos*/
 
-const CreateDepartment = (props) => {
+const InputDepartment = (props) => {
 
-    const [nome, setNome] = useState('')
-    const [org, setOrg] = useState('')
+    const [nome, setNome] = useState(props.name)
+    const [org, setOrg] = useState(props.org)
 
     function handleClose() {
         props.handleClose()
     }
+
+    useEffect(() => {
+        setName(props.name)
+        setOrg(props.org)
+    }, [props.open])
 
     return (
         <div>
@@ -46,11 +51,11 @@ const CreateDepartment = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <InputButton handleClose={handleClose} btnName='Adicionar'/>
+                    <InputButton handleClose={handleClose} btnName={"Adicionar"}/>
                 </DialogActions>
             </Dialog>
         </div>
     )
 }
 
-export default CreateDepartment
+export default InputDepartment
