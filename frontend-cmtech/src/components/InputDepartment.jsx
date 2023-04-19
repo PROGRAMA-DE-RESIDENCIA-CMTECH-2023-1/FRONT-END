@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -12,7 +12,7 @@ import InputButton from "./InputButton";
 
 const InputDepartment = (props) => {
 
-    const [nome, setNome] = useState(props.name)
+    const [name, setName] = useState(props.name)
     const [org, setOrg] = useState(props.org)
 
     function handleClose() {
@@ -33,8 +33,8 @@ const InputDepartment = (props) => {
                 <DialogContent>
                     <TextField
                         id="nome" label="Nome do Departamento" type="text" variant="outlined" fullWidth
-                        value={nome} sx={{ marginTop: 4 }}
-                        onChange={e => setNome(e.target.value)}
+                        value={name} sx={{ marginTop: 4 }}
+                        onChange={e => setName(e.target.value)}
                     />
                     <TextField
                         id="org" label="Organização" type="text" variant="outlined" fullWidth
@@ -51,7 +51,7 @@ const InputDepartment = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <InputButton handleClose={handleClose} btnName={"Adicionar"}/>
+                    <InputButton handleClose={handleClose} btnName={props.btnName}/>
                 </DialogActions>
             </Dialog>
         </div>

@@ -9,7 +9,7 @@ const UpdateButton = (props) => {
     }
 
     return (
-        <Button onClick={handleClickOpen}>
+        <Button onClick={handleClickOpen} sx={{ color:"#63236B" }}>
             <EditIcon/>
         </Button>
     )

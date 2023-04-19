@@ -1,35 +1,37 @@
 import './Lists.css'
 import React, { useState } from 'react';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
-import CreateDepartment from '../components/CreateDepartment';
+import InputDepartment from '../components/InputDepartment';
 import Copyright from "../components/Copyright";
+import UpdateButton from '../components/UpdateButton';
 
 /* Página Lista de Departamentos */
 
-const departament = [
-    { id: 1, nome: 'João', cargo: 'Analista' },
-    { id: 2, nome: 'Maria', cargo: 'Gerente' },
-    { id: 3, nome: 'Pedro', cargo: 'Desenvolvedor' },
-    { id: 4, nome: 'Ana', cargo: 'Analista' },
-    { id: 5, nome: 'José', cargo: 'Gerente' },
+const departaments = [
+    { id: 1, name: 'Suporte', org: 'CMTech' },
+    { id: 2, name: 'Infraestrutura', org: 'CMTech' },
+    { id: 3, name: 'Suporte', org: 'CMTech' },
+    { id: 4, name: 'Suporte', org: 'CMTech' },
+    { id: 5, name: 'JoInfraestruturasé', org: 'CMTech' },
 ];
 
 const ListsDepartament = () => {
-    const [open, setOpen] = useState(false)
+    const [openCreate, setOpenCreate] = useState(false)
+    const [openUpdate, setOpenUpdate] = useState(false)
+    const [departamentData, setDepartmentData] = useState({id: 0, name: "", org: ""})
 
-    function handleClickOpen() {
-        setOpen(true)
+    function handleClickOpenCreate() {
+        setOpenCreate(true)
     }
 
-    function handleClose() {
-        setOpen(false)
+    function handleCloseCreate() {
+        setOpenCreate(false)
     }
 
     function handleClickOpenUpdate(departament) {
-        setProfileData({
+        setDepartmentData({
             id: departament.id,
             name: departament.name,
             org: departament.org
@@ -37,8 +39,8 @@ const ListsDepartament = () => {
         setOpenUpdate(true);
     };
 
-    function handleCloseUpdate () {
-        setProfileData({
+    function handleCloseUpdate() {
+        setDepartmentData({
             id: 0,
             name: '',
             org: ''
@@ -49,9 +51,22 @@ const ListsDepartament = () => {
     return (
         <div>
             <Header title="Lista Departamentos" />
-            <AddButton handleClickOpen={handleClickOpen}/>
-            <CreateDepartment open={open} handleClose={handleClose}/>
-            
+
+            <InputDepartment
+                open={openCreate}
+                handleClose={handleCloseCreate}
+                btnName="Adicionar"
+                id={0} name="" org=""
+            />
+            <InputDepartment
+                open={openUpdate}
+                handleClose={handleCloseUpdate}
+                btnName="Atualizar"
+                id={departamentData.id} name={departamentData.name} org={departamentData.org}
+            />
+
+            <AddButton handleClickOpen={handleClickOpenCreate} />
+
             <div className="table-container">
                 <table>
                     <thead>
@@ -62,14 +77,14 @@ const ListsDepartament = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {departament.map(usuario => (
-                            <tr key={usuario.id}>
-                                <td>{usuario.nome}</td>
-                                <td>{usuario.cargo}</td>
+                        {departaments.map(departament => (
+                            <tr key={departament.id}>
+                                <td>{departament.name}</td>
+                                <td>{departament.org}</td>
                                 <td>
                                     <div className='icones'>
-                                    <UpdateButton
-                                            handleClickOpen={_ => handleClickOpenUpdate(profile)}
+                                        <UpdateButton
+                                            handleClickOpen={_ => handleClickOpenUpdate(departament)}
                                         />
                                         <DeleteIcon />
                                     </div>
@@ -80,7 +95,7 @@ const ListsDepartament = () => {
                 </table>
             </div>
             <div className='copy'>
-            <Copyright sx={{ pt: 4 }} />
+                <Copyright sx={{ pt: 4 }} />
             </div>
         </div>
     );

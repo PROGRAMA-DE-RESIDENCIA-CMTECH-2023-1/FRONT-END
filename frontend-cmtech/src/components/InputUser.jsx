@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -12,9 +12,9 @@ import InputButton from "./InputButton";
 
 const InputUser = (props) => {
 
-    const [nome, setNome] = useState(props.name)
-    const [email, setEmail] = useState(props.email)
-    const [empresa, setEmpresa] = useState(props.empresa)
+    const [name, setName] = useState(props.name)
+    const [profile, setProfile] = useState(props.email)
+    const [department, setDepartment] = useState(props.empresa)
 
     function handleClose() {
         props.handleClose()
@@ -22,8 +22,8 @@ const InputUser = (props) => {
 
     useEffect(() => {
         setName(props.name)
-        setEmail(props.email)
-        setOrg(props.empresa)
+        setProfile(props.profile)
+        setDepartment(props.department)
     }, [props.open])
 
     return (
@@ -35,18 +35,18 @@ const InputUser = (props) => {
                 <DialogContent>
                     <TextField
                         id="nome" label="Nome do Usuário" type="text" variant="outlined" fullWidth
-                        value={nome} sx={{ marginTop: 4 }}
-                        onChange={e => setNome(e.target.value)}
+                        value={name} sx={{ marginTop: 4 }}
+                        onChange={e => setName(e.target.value)}
                     />
                     <TextField
-                        id="email" label="E-mail" type="email" variant="outlined" fullWidth
-                        value={email} sx={{ marginTop: 4 }}
-                        onChange={e => setEmail(e.target.value)}
+                        id="profile" label="Perfil" type="text" variant="outlined" fullWidth
+                        value={profile} sx={{ marginTop: 4 }}
+                        onChange={e => setProfile(e.target.value)}
                     />
                     <TextField
-                        id="empresa" label="Empresa" type="text" variant="outlined" fullWidth
-                        value={empresa} sx={{ marginTop: 4 }}
-                        onChange={e => setEmpresa(e.target.value)}
+                        id="org" label="Organização" type="text" variant="outlined" fullWidth
+                        value={department} sx={{ marginTop: 4 }}
+                        onChange={e => setDepartment(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
@@ -57,7 +57,7 @@ const InputUser = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <InputButton handleClose={handleClose} btnName='Adicionar'/>
+                    <InputButton handleClose={handleClose} btnName={props.btnName}/>
                 </DialogActions>
             </Dialog>
         </div>

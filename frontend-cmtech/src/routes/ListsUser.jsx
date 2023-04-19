@@ -1,97 +1,111 @@
 import './Lists.css'
 import React, { useState } from 'react';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
 import { TextField } from '@mui/material';
-import CreateUser from '../components/CreateUser';
+import InputUser from '../components/InputUser';
 import Copyright from "../components/Copyright";
+import UpdateButton from '../components/UpdateButton';
 
 
 /* Página Lista de Usuários */
 
 const user = [
-    { id: 1, nome: 'João', cargo: 'Analista', setor: 'TI', online: true },
-    { id: 2, nome: 'Maria', cargo: 'Gerente', setor: 'Marketing', online: false },
-    { id: 3, nome: 'Pedro', cargo: 'Desenvolvedor', setor: 'TI', online: true },
-    { id: 4, nome: 'Ana', cargo: 'Analista', setor: 'Contabilidade', online: true },
-    { id: 5, nome: 'José', cargo: 'Gerente', setor: 'Vendas', online: false },
+    { id: 1, name: 'João', profile: 'Analista', department: 'TI', online: true},
+    { id: 2, name: 'Maria', profile: 'Gerente', department: 'Marketing', online: false},
+    { id: 3, name: 'Pedro', profile: 'Desenvolvedor', department: 'TI', online: true},
+    { id: 4, name: 'Ana', profile: 'Analista', department: 'Contabilidade', online: true},
+    { id: 5, name: 'José', profile: 'Gerente', department: 'Vendas', online: false},
 ];
 
 const ListsUser = () => {
-    const [filtroNome, setFiltroNome] = useState('');
-    const [filtroCargo, setFiltroCargo] = useState('');
-    const [filtroSetor, setFiltroSetor] = useState('');
-    const [open, setOpen] = useState(false)
+    const [filtroname, setFiltroname] = useState('');
+    const [filtroprofile, setFiltroprofile] = useState('');
+    const [filtrodepartment, setFiltrodepartment] = useState('');
+    const [openCreate, setOpenCreate] = useState(false)
+    const [openUpdate, setOpenUpdate] = useState(false)
+    const [userData, setUserData] = useState({id: 0, name: '', profile: '', department: '', online:''})
 
-    function handleClickOpen() {
-        setOpen(true);
+    function handleClickOpenCreate() {
+        setOpenCreate(true);
     };
 
-    function handleClose () {
-        setOpen(false);
-    };
-
-    const filtrarUsuarios = usuario => {
-        if (filtroNome && !usuario.nome.toLowerCase().includes(filtroNome.toLowerCase())) {
-            return false;
-        }
-        if (filtroCargo && !usuario.cargo.toLowerCase().includes(filtroCargo.toLowerCase())) {
-            return false;
-        }
-        if (filtroSetor && !usuario.setor.toLowerCase().includes(filtroSetor.toLowerCase())) {
-            return false;
-        }
-        return true;
+    function handleCloseCreate() {
+        setOpenCreate(false);
     };
 
     function handleClickOpenUpdate(usuario) {
-        setProfileData({
+        setUserData({
             id: usuario.id,
             name: usuario.name,
-            department: usuario.department,
-            org: usuario.org
+            profile: usuario.profile,
+            department: usuario.department
         })
         setOpenUpdate(true);
     };
 
-    function handleCloseUpdate () {
-        setProfileData({
+    function handleCloseUpdate() {
+        setUserData({
             id: 0,
             name: '',
-            department: '',
-            org: ''
+            profile: '',
+            department: ''
         })
         setOpenUpdate(false);
     };
 
+    const filtrarUsuarios = usuario => {
+        if (filtroname && !usuario.name.toLowerCase().includes(filtroname.toLowerCase())) {
+            return false;
+        }
+        if (filtroprofile && !usuario.profile.toLowerCase().includes(filtroprofile.toLowerCase())) {
+            return false;
+        }
+        if (filtrodepartment && !usuario.department.toLowerCase().includes(filtrodepartment.toLowerCase())) {
+            return false;
+        }
+        return true;
+    };
 
     const usuariosFiltrados = user.filter(filtrarUsuarios);
 
     return (
         <div>
             <Header title="Lista Usuários" />
-            <AddButton handleClickOpen={handleClickOpen}>
+
+            <InputUser
+                open={openCreate}
+                handleClose={handleCloseCreate}
+                btnName="Adicionar"
+                id={0} name="" profile="" department=""
+            />
+            <InputUser
+                open={openUpdate}
+                handleClose={handleCloseUpdate}
+                btnName="Atualizar"
+                id={userData.id} name={userData.name} profile={userData.profile} department={userData.department}
+            />
+
+            <AddButton handleClickOpen={handleClickOpenCreate}>
                 <div className='filter'>
                     <TextField
-                        className='filter' id="filtroNome" label="Nome" type="text" variant="outlined" fullWidth
-                        value={filtroNome}
-                        onChange={e => setFiltroNome(e.target.value)}
+                        className='filter' id="filtroname" label="name" type="text" variant="outlined" fullWidth
+                        value={filtroname}
+                        onChange={e => setFiltroname(e.target.value)}
                     />
                     <TextField
-                        className='filter' id="filtroCargo" label="Cargo" type="text" variant="outlined" fullWidth
-                        value={filtroCargo}
-                        onChange={e => setFiltroCargo(e.target.value)}
+                        className='filter' id="filtroprofile" label="profile" type="text" variant="outlined" fullWidth
+                        value={filtroprofile}
+                        onChange={e => setFiltroprofile(e.target.value)}
                     />
                     <TextField
-                        className='filter' id="filtroSetor" label="Setor" type="text" variant="outlined" fullWidth
-                        value={filtroSetor}
-                        onChange={e => setFiltroSetor(e.target.value)}
+                        className='filter' id="filtrodepartment" label="department" type="text" variant="outlined" fullWidth
+                        value={filtrodepartment}
+                        onChange={e => setFiltrodepartment(e.target.value)}
                     />
                 </div>
             </AddButton>
-            <CreateUser open={open} handleClose={handleClose}/>
 
             <div className="table-container">
                 <table>
@@ -100,26 +114,26 @@ const ListsUser = () => {
                             <th>Nome</th>
                             <th>Perfil</th>
                             <th>Departamento</th>
-                            <th>Status</th>
+                            <th>status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {usuariosFiltrados.map(usuario => (
                             <tr key={usuario.id}>
-                                <td>{usuario.nome}</td>
-                                <td>{usuario.cargo}</td>
-                                <td>{usuario.setor}</td>
+                                <td>{usuario.name}</td>
+                                <td>{usuario.profile}</td>
+                                <td>{usuario.department}</td>
                                 <td >
                                     <div>
                                         <span className={usuario.online ? 'online' : 'offline'}></span>
-                                        {usuario.online ? 'Online' : 'Offline'}
+                                        {usuario.online ? "Disponível" : "Em atendimento"}
                                     </div>
                                 </td>
                                 <td>
                                     <div className='icones'>
-                                    <UpdateButton
-                                            handleClickOpen={_ => handleClickOpenUpdate(profile)}
+                                        <UpdateButton
+                                            handleClickOpen={_ => handleClickOpenUpdate(usuario)}
                                         />
                                         <DeleteIcon />
                                     </div>
@@ -130,7 +144,7 @@ const ListsUser = () => {
                 </table>
             </div>
             <div className='copy'>
-            <Copyright sx={{ pt: 4 }} />
+                <Copyright sx={{ pt: 4 }} />
             </div>
         </div>
     );
