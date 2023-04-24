@@ -46,7 +46,7 @@ const InputDepartment = (props) => {
                 <DialogActions style={{ justifyContent: "space-around" }}>
                     <Button
                         variant='contained'
-                        sx={{ background: 'gray', marginTop: 4, width: 150 }}
+                        sx={{ background: 'gray', marginTop: 4 , width: 150, marginLeft: 8, marginRight:16 }}
                         onClick={handleClose}
                     >
                         Cancelar

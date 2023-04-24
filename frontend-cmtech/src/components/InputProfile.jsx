@@ -38,21 +38,11 @@ const InputProfile = (props) => {
                         value={name} sx={{ marginTop: 4 }}
                         onChange={e => setName(e.target.value)}
                     />
-                    <TextField
-                        id="department" label="Departamento" type="text" variant="outlined" fullWidth
-                        value={department} sx={{ marginTop: 4 }}
-                        onChange={e => setDepartment(e.target.value)}
-                    />
-                    <TextField
-                        id="org" label="Organização" type="text" variant="outlined" fullWidth
-                        value={org} sx={{ marginTop: 4 }}
-                        onChange={e => setOrg(e.target.value)}
-                    />
                 </DialogContent>
                 <DialogActions>
                     <Button
                         variant='contained'
-                        sx={{ background: 'gray', marginTop: 4, marginRight: 12, width: 150 }}
+                        sx={{ background: 'gray', marginTop: 4, marginRight: 18, marginLeft: 6, width: 150 }}
                         onClick={handleClose}
                     >
                         Cancelar

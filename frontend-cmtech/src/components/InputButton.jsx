@@ -10,7 +10,7 @@ const InputButton = (props) => {
     return (
         <Button
             variant='contained' color='secondary'
-            sx={{ background: '#4B0054', marginTop: 4, marginRight: 12, width: 150 }}
+            sx={{ background: '#4B0054', marginTop: 4, marginRight: 5, width: 150 }}
             onClick={handleClose}
         >
             {props.btnName}

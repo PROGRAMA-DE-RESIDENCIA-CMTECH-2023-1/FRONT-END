@@ -52,7 +52,7 @@ const InputUser = (props) => {
                 <DialogActions>
                     <Button
                         variant='contained'
-                        sx={{ background: 'gray', marginTop: 4, marginRight: 12, width: 150 }}
+                        sx={{ background: 'gray', marginTop: 4, marginRight: 24, width: 150 }}
                         onClick={handleClose}
                     >
                         Cancelar
