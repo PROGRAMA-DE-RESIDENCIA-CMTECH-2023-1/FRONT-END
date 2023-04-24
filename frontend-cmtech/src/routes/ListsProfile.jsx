@@ -1,27 +1,21 @@
 import './Lists.css'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
 import InputProfile from '../components/InputProfile';
 import Copyright from "../components/Copyright";
 import UpdateButton from '../components/UpdateButton';
+import { api } from '../libs/Api';
 
 /* Página Lista de Perfis */
-
-const profile = [
-    { id: 1, name: 'João', department: 'Analista', org: 'TI' },
-    { id: 2, name: 'Maria', department: 'Gerente', org: 'Marketing' },
-    { id: 3, name: 'Pedro', department: 'Desenvolvedor', org: 'TI' },
-    { id: 4, name: 'Ana', department: 'Analista', org: 'Contabilidade' },
-    { id: 5, name: 'José', department: 'Gerente', org: 'Vendas' },
-];
 
 const ListsProfile = () => {
 
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
     const [profileData, setProfileData] = useState({id:0, name:'', department:'', org:''})
+    const [profiles, setProfiles] = useState([])
 
     function handleClickOpenCreate() {
         setOpenCreate(true); 
@@ -51,6 +45,12 @@ const ListsProfile = () => {
         setOpenUpdate(false);
     };
 
+    useEffect(() => {
+        api.get("Profile").then(response => {
+            setProfiles(response.data)
+        })
+    }, [])
+
     return (
         <div>
             <Header title="Lista Perfis" />
@@ -75,17 +75,13 @@ const ListsProfile = () => {
                     <thead>
                         <tr>
                             <th>Perfil</th>
-                            <th>Departamento</th>
-                            <th>Organização</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {profile.map(profile => (
+                        {profiles.map(profile => (
                             <tr key={profile.id}>
                                 <td>{profile.name}</td>
-                                <td>{profile.department}</td>
-                                <td>{profile.org} </td>
                                 <td>
                                     <div className='icones'>
                                         <UpdateButton
