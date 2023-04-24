@@ -1,12 +1,13 @@
 import './Lists.css'
 import React, { useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
 import { TextField } from '@mui/material';
 import InputUser from '../components/InputUser';
 import Copyright from "../components/Copyright";
 import UpdateButton from '../components/UpdateButton';
+import DeleteButton from '../components/DeleteButton';
+import DeleteDialog from '../components/DeleteDialog';
 
 
 /* Página Lista de Usuários */
@@ -25,6 +26,7 @@ const ListsUser = () => {
     const [filtrodepartment, setFiltrodepartment] = useState('');
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
+    const [openDelete, setOpenDelete] = useState(false)
     const [userData, setUserData] = useState({id: 0, name: '', profile: '', department: '', online:''})
 
     function handleClickOpenCreate() {
@@ -54,6 +56,26 @@ const ListsUser = () => {
         })
         setOpenUpdate(false);
     };
+
+    function handleClickOpenDelete(usuario) {
+        setUserData({
+            id: usuario.id,
+            name: usuario.name,
+            profile: usuario.profile,
+            department: usuario.department
+        })
+        setOpenDelete(true)
+    }
+
+    function handleCloseDelete() {
+        setUserData({
+            id: 0,
+            name: '',
+            profile: '',
+            department: ''
+        })
+        setOpenDelete(false)
+    }
 
     const filtrarUsuarios = usuario => {
         if (filtroname && !usuario.name.toLowerCase().includes(filtroname.toLowerCase())) {
@@ -85,6 +107,11 @@ const ListsUser = () => {
                 handleClose={handleCloseUpdate}
                 btnName="Atualizar"
                 id={userData.id} name={userData.name} profile={userData.profile} department={userData.department}
+            />
+            <DeleteDialog
+                open={openDelete}
+                handleClose={handleCloseDelete}
+                name={userData.name}
             />
 
             <AddButton handleClickOpen={handleClickOpenCreate}>
@@ -135,7 +162,10 @@ const ListsUser = () => {
                                         <UpdateButton
                                             handleClickOpen={_ => handleClickOpenUpdate(usuario)}
                                         />
-                                        <DeleteIcon />
+                                        
+                                        <DeleteButton
+                                            handleClickOpen={_ => handleClickOpenDelete(usuario)}
+                                        />
                                     </div>
                                 </td>
                             </tr>

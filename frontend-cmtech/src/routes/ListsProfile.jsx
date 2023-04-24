@@ -1,12 +1,13 @@
 import './Lists.css'
 import React, { useEffect, useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
 import InputProfile from '../components/InputProfile';
 import Copyright from "../components/Copyright";
 import UpdateButton from '../components/UpdateButton';
+import DeleteButton from '../components/DeleteButton';
 import { api } from '../libs/Api';
+import DeleteDialog from '../components/DeleteDialog';
 
 /* Página Lista de Perfis */
 
@@ -14,6 +15,7 @@ const ListsProfile = () => {
 
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
+    const [openDelete, setOpenDelete] = useState(false)
     const [profileData, setProfileData] = useState({id:0, name:'', department:'', org:''})
     const [profiles, setProfiles] = useState([])
 
@@ -45,6 +47,26 @@ const ListsProfile = () => {
         setOpenUpdate(false);
     };
 
+    function handleClickOpenDelete(profile) {
+        setProfileData({
+            id: profile.id,
+            name: profile.name,
+            department: profile.department,
+            org: profile.org
+        })
+        setOpenDelete(true)
+    }
+
+    function handleCloseDelete() {
+        setProfileData({
+            id: 0,
+            name: '',
+            department: '',
+            org: ''
+        })
+        setOpenDelete(false)
+    }
+
     useEffect(() => {
         api.get("Profile").then(response => {
             setProfiles(response.data)
@@ -67,6 +89,12 @@ const ListsProfile = () => {
                 id={profileData.id} name={profileData.name} department={profileData.department} org={profileData.org}
                 btnName='Atualizar'
             />
+            
+            <DeleteDialog
+                open={openDelete}
+                handleClose={handleCloseDelete}
+                name={profileData.name}
+            />
 
             <AddButton handleClickOpen={handleClickOpenCreate}/>
             
@@ -87,7 +115,9 @@ const ListsProfile = () => {
                                         <UpdateButton
                                             handleClickOpen={_ => handleClickOpenUpdate(profile)}
                                         />
-                                        <DeleteIcon />
+                                        <DeleteButton
+                                            handleClickOpen={_ => handleClickOpenDelete(profile)}
+                                        />
                                     </div>
                                 </td>
                             </tr>

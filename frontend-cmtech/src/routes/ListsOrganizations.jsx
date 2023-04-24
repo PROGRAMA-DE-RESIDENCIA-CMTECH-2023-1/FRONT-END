@@ -1,11 +1,12 @@
 import './Lists.css'
 import React, { useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton'
 import InputOrg from '../components/InputOrg';
 import Copyright from "../components/Copyright";
 import UpdateButton from '../components/UpdateButton';
+import DeleteButton from '../components/DeleteButton';
+import DeleteDialog from '../components/DeleteDialog';
 
 /* Página Lista de Organizações */
 
@@ -21,6 +22,7 @@ const ListsOrganizations = () => {
 
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
+    const [openDelete, setOpenDelete] = useState(false)
     const [orgData, setOrgData] = useState({id: 0, name: '', phone: '', segment: '', group: ''})
  
     function handleClickOpenCreate() {
@@ -53,6 +55,28 @@ const ListsOrganizations = () => {
         setOpenUpdate(false);
     };
 
+    function handleClickOpenDelete(org) {
+        setOrgData({
+            id: org.id,
+            name: org.name,
+            phone: org.phone,
+            segment: org.segment,
+            group: org.group
+        })
+        setOpenDelete(true)
+    }
+
+    function handleCloseDelete() {
+        setOrgData({
+            id: 0,
+            name: '',
+            phone: '',
+            segment: '',
+            group: ''
+        })
+        setOpenDelete(false)
+    }
+
     return (
         <div>
             <Header title="Lista Organizações" />
@@ -67,6 +91,11 @@ const ListsOrganizations = () => {
                 open={openUpdate}
                 handleClose={handleCloseUpdate}
                 id={orgData.id} name={orgData.name} phone={orgData.phone} segment={orgData.segment} group={orgData.group}
+            />
+            <DeleteDialog
+                open={openDelete}
+                handleClose={handleCloseDelete}
+                name={orgData.name}
             />
 
             <AddButton handleClickOpen={handleClickOpenCreate}/>
@@ -94,7 +123,10 @@ const ListsOrganizations = () => {
                                         <UpdateButton
                                             handleClickOpen={_ => handleClickOpenUpdate(org)}
                                         />
-                                        <DeleteIcon />
+                                        
+                                        <DeleteButton
+                                            handleClickOpen={_ => handleClickOpenDelete(org)}
+                                        />
                                     </div>
                                 </td>
                             </tr>

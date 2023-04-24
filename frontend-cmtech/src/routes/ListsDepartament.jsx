@@ -1,11 +1,12 @@
 import './Lists.css'
 import React, { useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
 import InputDepartment from '../components/InputDepartment';
 import Copyright from "../components/Copyright";
 import UpdateButton from '../components/UpdateButton';
+import DeleteButton from '../components/DeleteButton';
+import DeleteDialog from '../components/DeleteDialog';
 
 /* Página Lista de Departamentos */
 
@@ -20,6 +21,7 @@ const departaments = [
 const ListsDepartament = () => {
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
+    const [openDelete, setOpenDelete] = useState(false)
     const [departamentData, setDepartmentData] = useState({id: 0, name: "", org: ""})
 
     function handleClickOpenCreate() {
@@ -48,6 +50,24 @@ const ListsDepartament = () => {
         setOpenUpdate(false);
     };
 
+    function handleClickOpenDelete(departament) {
+        setDepartmentData({
+            id: departament.id,
+            name: departament.name,
+            org: departament.org
+        })
+        setOpenDelete(true)
+    }
+
+    function handleCloseDelete() {
+        setDepartmentData({
+            id: 0,
+            name: '',
+            org: ''
+        })
+        setOpenDelete(false)
+    }
+
     return (
         <div>
             <Header title="Lista Departamentos" />
@@ -63,6 +83,11 @@ const ListsDepartament = () => {
                 handleClose={handleCloseUpdate}
                 btnName="Atualizar"
                 id={departamentData.id} name={departamentData.name} org={departamentData.org}
+            />
+            <DeleteDialog
+                open={openDelete}
+                handleClose={handleCloseDelete}
+                name={departamentData.name}
             />
 
             <AddButton handleClickOpen={handleClickOpenCreate} />
@@ -86,7 +111,10 @@ const ListsDepartament = () => {
                                         <UpdateButton
                                             handleClickOpen={_ => handleClickOpenUpdate(departament)}
                                         />
-                                        <DeleteIcon />
+                                        
+                                        <DeleteButton
+                                            handleClickOpen={_ => handleClickOpenDelete(departament)}
+                                        />
                                     </div>
                                 </td>
                             </tr>
