@@ -12,6 +12,11 @@ const DeleteDialog = (props) => {
         props.handleClose()
     }
 
+    function onDelete() {
+        props.onDelete(props.id)
+        props.handleClose()
+    }
+
     return (
         <div>
             <Dialog open={props.open} onClose={handleClose}>
@@ -32,7 +37,7 @@ const DeleteDialog = (props) => {
                     <Button
                         variant='contained' color='secondary'
                         sx={{ background: '#4B0054', marginTop: 4, marginLeft: 6, width: 150 }}
-                        onClick={handleClose}
+                        onClick={onDelete}
                     >
                         Deletar
                     </Button>

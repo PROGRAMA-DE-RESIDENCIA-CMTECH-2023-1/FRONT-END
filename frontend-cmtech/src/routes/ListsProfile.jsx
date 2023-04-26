@@ -16,14 +16,14 @@ const ListsProfile = () => {
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)
-    const [profileData, setProfileData] = useState({id:0, name:'', department:'', org:''})
+    const [profileData, setProfileData] = useState({ id: 0, name: '' })
     const [profiles, setProfiles] = useState([])
 
     function handleClickOpenCreate() {
-        setOpenCreate(true); 
+        setOpenCreate(true);
     };
 
-    function handleCloseCreate () {
+    function handleCloseCreate() {
         setOpenCreate(false);
     };
 
@@ -37,12 +37,10 @@ const ListsProfile = () => {
         setOpenUpdate(true);
     };
 
-    function handleCloseUpdate () {
+    function handleCloseUpdate() {
         setProfileData({
             id: 0,
             name: '',
-            department: '',
-            org: ''
         })
         setOpenUpdate(false);
     };
@@ -51,8 +49,6 @@ const ListsProfile = () => {
         setProfileData({
             id: profile.id,
             name: profile.name,
-            department: profile.department,
-            org: profile.org
         })
         setOpenDelete(true)
     }
@@ -61,10 +57,24 @@ const ListsProfile = () => {
         setProfileData({
             id: 0,
             name: '',
-            department: '',
-            org: ''
         })
         setOpenDelete(false)
+    }
+
+    async function postProfile(newProfile) {
+        await api.post("Profile", newProfile).then(response => {
+            setProfiles([...profiles, response.data])
+        })
+    }
+
+    async function deleteProfile(profileId) {
+        await api.delete("Profile", {
+            params: {
+                id: profileId
+            }
+        }).then(response => {
+            setProfiles(response.data)
+        })
     }
 
     useEffect(() => {
@@ -76,28 +86,31 @@ const ListsProfile = () => {
     return (
         <div>
             <Header title="Lista Perfis" />
-            
+
             <InputProfile
                 open={openCreate}
                 handleClose={handleCloseCreate}
-                id={0} name='' departmente='' org=''
+                handleConfirm={postProfile}
+                id={profileData.id} name={profileData.name}
                 btnName='Adicionar'
             />
             <InputProfile
                 open={openUpdate}
                 handleClose={handleCloseUpdate}
-                id={profileData.id} name={profileData.name} department={profileData.department} org={profileData.org}
+                id={profileData.id} name={profileData.name}
                 btnName='Atualizar'
             />
-            
+
             <DeleteDialog
                 open={openDelete}
                 handleClose={handleCloseDelete}
+                onDelete={deleteProfile}
+                id={profileData.id}
                 name={profileData.name}
             />
 
-            <AddButton handleClickOpen={handleClickOpenCreate}/>
-            
+            <AddButton handleClickOpen={handleClickOpenCreate} />
+
             <div className="table-container">
                 <table>
                     <thead>
@@ -126,7 +139,7 @@ const ListsProfile = () => {
                 </table>
             </div>
             <div className='copy'>
-            <Copyright sx={{ pt: 4 }} />
+                <Copyright sx={{ pt: 4 }} />
             </div>
         </div>
     );

@@ -11,19 +11,25 @@ import InputButton from "./InputButton"
 /* Área de criar Perfis*/
 
 const InputProfile = (props) => {
- 
+
+    const [id, setId] = useState(props.id)
     const [name, setName] = useState(props.name)
-    const [department, setDepartment] = useState(props.department)
-    const [org, setOrg] = useState(props.org)
 
     function handleClose() {
         props.handleClose()
     }
 
+    function handleConfirm() {
+        const newProfile = {
+            id: id,
+            name: name
+        }
+        props.handleConfirm(newProfile)
+        props.handleClose()
+    }
+
     useEffect(() => {
         setName(props.name)
-        setDepartment(props.department)
-        setOrg(props.org)
     }, [props.open])
 
     return (
@@ -47,7 +53,10 @@ const InputProfile = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <InputButton handleClose={handleClose} btnName={"Adicionar"}/>
+                    <InputButton
+                        handleConfirm={handleConfirm}
+                        btnName={props.btnName}
+                    />
                 </DialogActions>
             </Dialog>
         </div>
