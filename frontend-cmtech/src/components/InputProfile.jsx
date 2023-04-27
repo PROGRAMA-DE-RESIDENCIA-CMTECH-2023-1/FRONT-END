@@ -30,6 +30,7 @@ const InputProfile = (props) => {
 
     useEffect(() => {
         setName(props.name)
+        setId(props.id)
     }, [props.open])
 
     return (

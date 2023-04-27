@@ -31,8 +31,6 @@ const ListsProfile = () => {
         setProfileData({
             id: profile.id,
             name: profile.name,
-            department: profile.department,
-            org: profile.org
         })
         setOpenUpdate(true);
     };
@@ -67,6 +65,14 @@ const ListsProfile = () => {
         })
     }
 
+    async function putProfile(newProfile) {
+        await api.put("Profile", newProfile).then(response => {
+            let filterProfiles = profiles.filter(p => p.id != response.data.id)
+            filterProfiles = [...filterProfiles, response.data]
+            setProfiles(filterProfiles)
+        })
+    }
+
     async function deleteProfile(profileId) {
         await api.delete("Profile", {
             params: {
@@ -97,6 +103,7 @@ const ListsProfile = () => {
             <InputProfile
                 open={openUpdate}
                 handleClose={handleCloseUpdate}
+                handleConfirm={putProfile}
                 id={profileData.id} name={profileData.name}
                 btnName='Atualizar'
             />
