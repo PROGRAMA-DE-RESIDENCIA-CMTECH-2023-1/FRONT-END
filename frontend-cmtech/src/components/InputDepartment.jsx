@@ -12,16 +12,31 @@ import InputButton from "./InputButton";
 
 const InputDepartment = (props) => {
 
+    const [id, setId] = useState(props.id)
     const [name, setName] = useState(props.name)
     const [org, setOrg] = useState(props.org)
+    const [org_id, setOrgId] = useState(props.org_id)
 
     function handleClose() {
         props.handleClose()
     }
 
+    function handleConfirm() {
+        const newDepartment = {
+            id: id,
+            name: name,
+            org: org,
+            org_id: org_id
+        }
+        props.handleConfirm(newDepartment)
+        props.handleClose()
+    }
+
     useEffect(() => {
+        setId(props.id)
         setName(props.name)
         setOrg(props.org)
+        setOrgId(props.org_id)
     }, [props.open])
 
     return (
@@ -51,7 +66,7 @@ const InputDepartment = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <InputButton handleClose={handleClose} btnName={props.btnName}/>
+                    <InputButton handleClose={handleClose} handleConfirm={handleConfirm} btnName={props.btnName}/>
                 </DialogActions>
             </Dialog>
         </div>
