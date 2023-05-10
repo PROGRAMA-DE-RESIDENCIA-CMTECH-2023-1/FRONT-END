@@ -11,14 +11,6 @@ import { api } from '../libs/Api';
 
 /* Página Lista de Departamentos */
 
-// const departaments = [
-//     { id: 1, name: 'Suporte', org: 'CMTech' },
-//     { id: 2, name: 'Infraestrutura', org: 'CMTech' },
-//     { id: 3, name: 'Suporte', org: 'CMTech' },
-//     { id: 4, name: 'Suporte', org: 'CMTech' },
-//     { id: 5, name: 'JoInfraestruturasé', org: 'CMTech' },
-// ];
-
 const ListsDepartament = () => {
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
@@ -102,7 +94,7 @@ const ListsDepartament = () => {
         api.get("Department").then(response => {
             setDepartments(response.data)
         })
-    })
+    }, [])
 
     return (
         <div>

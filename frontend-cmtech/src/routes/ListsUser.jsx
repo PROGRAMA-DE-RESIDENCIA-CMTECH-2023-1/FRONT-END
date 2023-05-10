@@ -1,5 +1,5 @@
 import './Lists.css'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
 import { TextField } from '@mui/material';
@@ -8,17 +8,10 @@ import Copyright from "../components/Copyright";
 import UpdateButton from '../components/UpdateButton';
 import DeleteButton from '../components/DeleteButton';
 import DeleteDialog from '../components/DeleteDialog';
+import { api } from '../libs/Api';
 
 
 /* Página Lista de Usuários */
-
-const user = [
-    { id: 1, name: 'João', profile: 'Analista', department: 'TI', online: true},
-    { id: 2, name: 'Maria', profile: 'Gerente', department: 'Marketing', online: false},
-    { id: 3, name: 'Pedro', profile: 'Desenvolvedor', department: 'TI', online: true},
-    { id: 4, name: 'Ana', profile: 'Analista', department: 'Contabilidade', online: true},
-    { id: 5, name: 'José', profile: 'Gerente', department: 'Vendas', online: false},
-];
 
 const ListsUser = () => {
     const [filtroname, setFiltroname] = useState('');
@@ -28,6 +21,7 @@ const ListsUser = () => {
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)
     const [userData, setUserData] = useState({id: 0, name: '', profile: '', department: '', online:''})
+    const [users, setUsers] = useState([])
 
     function handleClickOpenCreate() {
         setOpenCreate(true);
@@ -77,6 +71,35 @@ const ListsUser = () => {
         setOpenDelete(false)
     }
 
+    async function postUser(newUser) {
+        await api.post("User", newUser).then(response => {
+            setUsers([...users, response.data])
+        })
+    }
+
+    async function putUser(newUser) {
+        await api.put("User", newUser).then(response => {
+            const filterUsers = users.filter(u => u.id != response.data.id)
+            setUsers([...filterUsers, response.data])
+        })
+    }
+
+    async function deleteUser(userId) {
+        await api.delete("User", {
+            params: {
+                id: userId
+            }
+        }).then(response => {
+            setUsers(response.data)
+        })
+    }
+
+    useEffect(() => {
+        api.get("User").then(response => {
+            setUsers(response.data)
+        })
+    }, [])
+
     const filtrarUsuarios = usuario => {
         if (filtroname && !usuario.name.toLowerCase().includes(filtroname.toLowerCase())) {
             return false;
@@ -90,7 +113,7 @@ const ListsUser = () => {
         return true;
     };
 
-    const usuariosFiltrados = user.filter(filtrarUsuarios);
+    const usuariosFiltrados = users.filter(filtrarUsuarios);
 
     return (
         <div>
@@ -99,19 +122,23 @@ const ListsUser = () => {
             <InputUser
                 open={openCreate}
                 handleClose={handleCloseCreate}
+                handleConfirm={postUser}
                 btnName="Adicionar"
                 id={0} name="" profile="" department=""
             />
             <InputUser
                 open={openUpdate}
                 handleClose={handleCloseUpdate}
+                handleConfirm={putUser}
                 btnName="Atualizar"
                 id={userData.id} name={userData.name} profile={userData.profile} department={userData.department}
             />
             <DeleteDialog
                 open={openDelete}
                 handleClose={handleCloseDelete}
+                onDelete={deleteUser}
                 name={userData.name}
+                id={userData.id}
             />
 
             <AddButton handleClickOpen={handleClickOpenCreate}>
@@ -149,8 +176,8 @@ const ListsUser = () => {
                         {usuariosFiltrados.map(usuario => (
                             <tr key={usuario.id}>
                                 <td>{usuario.name}</td>
-                                <td>{usuario.profile}</td>
-                                <td>{usuario.department}</td>
+                                <td>{usuario.profile?.name ?? ''}</td>
+                                <td>{usuario.department?.name ?? ''}</td>
                                 <td >
                                     <div>
                                         <span className={usuario.online ? 'online' : 'offline'}></span>

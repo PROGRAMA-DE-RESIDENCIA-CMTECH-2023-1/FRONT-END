@@ -12,6 +12,7 @@ import InputButton from "./InputButton";
 
 const InputUser = (props) => {
 
+    const [id, setId] = useState(props.id)
     const [name, setName] = useState(props.name)
     const [profile, setProfile] = useState(props.email)
     const [department, setDepartment] = useState(props.empresa)
@@ -20,7 +21,19 @@ const InputUser = (props) => {
         props.handleClose()
     }
 
+    function handleConfirm() {
+        const newUser = {
+            id: id,
+            name: name,
+            profile: profile,
+            department: department
+        }
+        props.handleConfirm(newUser)
+        props.handleClose()
+    }
+
     useEffect(() => {
+        setId(props.id)
         setName(props.name)
         setProfile(props.profile)
         setDepartment(props.department)
@@ -57,7 +70,7 @@ const InputUser = (props) => {
                     >
                         Cancelar
                     </Button>
-                    <InputButton handleClose={handleClose} btnName={props.btnName}/>
+                    <InputButton handleClose={handleClose} handleConfirm={handleConfirm} btnName={props.btnName}/>
                 </DialogActions>
             </Dialog>
         </div>
