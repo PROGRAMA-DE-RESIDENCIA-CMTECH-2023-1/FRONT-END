@@ -20,7 +20,9 @@ const ListsUser = () => {
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)
-    const [userData, setUserData] = useState({id: 0, name: '', profile: '', department: '', online:''})
+    const [userData, setUserData] = useState(
+        {id: 0, name: '', profile: {id: 0, name: ''}, department: {id: 0, name: ''}, org: {id: 0, name: ''}, online:''}
+    )
     const [users, setUsers] = useState([])
 
     function handleClickOpenCreate() {
@@ -36,7 +38,8 @@ const ListsUser = () => {
             id: usuario.id,
             name: usuario.name,
             profile: usuario.profile,
-            department: usuario.department
+            department: usuario.department,
+            org: usuario.org
         })
         setOpenUpdate(true);
     };
@@ -45,8 +48,9 @@ const ListsUser = () => {
         setUserData({
             id: 0,
             name: '',
-            profile: '',
-            department: ''
+            profile: {id: 0, name: ''},
+            department: {id: 0, name: ''},
+            org: {id: 0, name: ''},
         })
         setOpenUpdate(false);
     };
@@ -56,7 +60,8 @@ const ListsUser = () => {
             id: usuario.id,
             name: usuario.name,
             profile: usuario.profile,
-            department: usuario.department
+            department: usuario.department,
+            org: usuario.org
         })
         setOpenDelete(true)
     }
@@ -65,8 +70,9 @@ const ListsUser = () => {
         setUserData({
             id: 0,
             name: '',
-            profile: '',
-            department: ''
+            profile: {id: 0, name: ''},
+            department: {id: 0, name: ''},
+            org: {id: 0, name: ''},
         })
         setOpenDelete(false)
     }
@@ -124,14 +130,14 @@ const ListsUser = () => {
                 handleClose={handleCloseCreate}
                 handleConfirm={postUser}
                 btnName="Adicionar"
-                id={0} name="" profile="" department=""
+                id={0} name="" profile={{id: 0, name: ""}} department={{id: 0, name: ""}} org={{id: 0, name: ""}}
             />
             <InputUser
                 open={openUpdate}
                 handleClose={handleCloseUpdate}
                 handleConfirm={putUser}
                 btnName="Atualizar"
-                id={userData.id} name={userData.name} profile={userData.profile} department={userData.department}
+                id={userData.id} name={userData.name} profile={userData.profile} department={userData.department} org={userData.org}
             />
             <DeleteDialog
                 open={openDelete}
