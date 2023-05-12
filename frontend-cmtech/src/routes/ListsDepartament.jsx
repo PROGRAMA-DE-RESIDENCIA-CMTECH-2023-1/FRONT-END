@@ -7,6 +7,7 @@ import Copyright from "../components/Copyright";
 import UpdateButton from '../components/UpdateButton';
 import DeleteButton from '../components/DeleteButton';
 import DeleteDialog from '../components/DeleteDialog';
+import TextField from "@mui/material/TextField";
 import { api } from '../libs/Api';
 
 /* Página Lista de Departamentos */
@@ -17,6 +18,9 @@ const ListsDepartament = () => {
     const [openDelete, setOpenDelete] = useState(false)
     const [departmentData, setDepartmentData] = useState({id: 0, name: "", org: "", org_id: 0})
     const [departments, setDepartments] = useState([])
+    const [filtroname, setFiltroname] = useState('')
+    const [filtroorg, setFiltroorg] = useState('')
+
  
     function handleClickOpenCreate() {
         setOpenCreate(true)
@@ -143,7 +147,7 @@ const ListsDepartament = () => {
                     />
                     <TextField
                         className='filter' id="filtrosorg" label="org" type="text" variant="outlined" fullWidth
-                        value={filtrosorg}
+                        value={filtroorg}
                         onChange={e => setFiltroorg(e.target.value)}
                     />
                 </div>

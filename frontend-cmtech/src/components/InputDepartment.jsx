@@ -6,7 +6,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import InputButton from "./InputButton"; 
+import InputButton from "./InputButton";
+import { api } from '../libs/Api';
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 /* Área de criar Departamentos*/
 
@@ -16,6 +18,7 @@ const InputDepartment = (props) => {
     const [name, setName] = useState(props.name)
     const [org, setOrg] = useState(props.org)
     const [org_id, setOrgId] = useState(props.org_id)
+    const [orgs, setOrgs] = useState([])
 
     function handleClose() {
         props.handleClose()
@@ -67,7 +70,7 @@ const InputDepartment = (props) => {
                             label="org"
                             onChange={e =>setOrg(org.find(d => d.id == e.target.value))}
                         >
-                            {org.map(d => (
+                            {orgs.map(d => (
                                 <MenuItem key={d.id} value={d.id}>{d.name}</MenuItem>
                             )
                             )}

@@ -7,6 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import InputButton from "./InputButton";
+import { api } from '../libs/Api';
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 /* Área de criar Organizações*/
 
@@ -16,9 +18,9 @@ const InputOrg = (props) => {
     const [name, setName] = useState(props.name)
     const [phone, setPhone] = useState(props.phone)
     const [segment, setSegment] = useState(props.segment)
-    const [segmentId, setSegmentId] = useState(props.segmentId)
     const [group, setGroup] = useState(props.group)
-    const [groupId, setGroupId] = useState(props.groupId)
+    const [segments, setSegments] = useState([])
+    const [groups, setGroups] = useState([])
 
     function handleClose() {
         props.handleClose()
@@ -30,9 +32,7 @@ const InputOrg = (props) => {
             name: name,
             phone: phone,
             segment: segment,
-            segmentId: segmentId,
             group: group,
-            groupId: groupId
         }
         props.handleConfirm(newOrg)
         props.handleClose()
@@ -43,17 +43,15 @@ const InputOrg = (props) => {
         setName(props.name)
         setPhone(props.phone)
         setSegment(props.segment)
-        setSegmentId(props.segmentId)
         setGroup(props.group)
-        setGroupId(props.groupId)
     }, [props.open])
 
     useEffect(() => {
         api.get("Segment").then(response => {
-            setSegment(response.data)
+            setSegments(response.data)
         })
         api.get("Group").then(response => {
-            setGroup(response.data)
+            setGroups(response.data)
         })
     }, [])
 
@@ -81,10 +79,10 @@ const InputOrg = (props) => {
                             id="segment"
                             value={segment && segment?.id != 0 ? segment?.id : ''}
                             label="segment"
-                            onChange={e =>setSegment(segment.find(d => d.id == e.target.value))}
+                            onChange={e =>setSegment(segments.find(s => s.id == e.target.value))}
                         >
-                            {segment.map(d => (
-                                <MenuItem key={d.id} value={d.id}>{d.name}</MenuItem>
+                            {segments.map(s => (
+                                <MenuItem key={s.id} value={s.id}>{s.name}</MenuItem>
                             )
                             )}
                         </Select>
@@ -96,10 +94,10 @@ const InputOrg = (props) => {
                             id="group"
                             value={group && group?.id != 0 ? group?.id : ''}
                             label="group"
-                            onChange={e =>setGroup(group.find(d => d.id == e.target.value))}
+                            onChange={e =>setGroup(groups.find(d => d.id == e.target.value))}
                         >
-                            {group.map(d => (
-                                <MenuItem key={d.id} value={d.id}>{d.name}</MenuItem>
+                            {groups.map(g => (
+                                <MenuItem key={g.id} value={g.id}>{g.name}</MenuItem>
                             )
                             )}
                         </Select>
