@@ -43,7 +43,7 @@ const InputUser = (props) => {
         setId(props.id)
         setName(props.name)
         setProfile(props.profile)
-        setDepartment(props.department)
+        setDepartment(props.department) 
         setOrg(props.org)
     }, [props.open])
 

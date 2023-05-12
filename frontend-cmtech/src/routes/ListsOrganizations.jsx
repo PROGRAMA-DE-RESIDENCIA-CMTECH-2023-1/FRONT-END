@@ -12,7 +12,9 @@ import { api } from '../libs/Api';
 /* Página Lista de Organizações */
 
 const ListsOrganizations = () => {
-
+    const [filtroname, setFiltroname] = useState('');
+    const [filtrosegment, setFiltrosegment] = useState('');
+    const [filtrogroup, setFiltrogroup] = useState('');
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)
@@ -109,6 +111,21 @@ const ListsOrganizations = () => {
         })
     }, [])
 
+    const filtrarOrg = org => {
+        if (filtroname && !org.name.toLowerCase().includes(filtroname.toLowerCase())) {
+            return false;
+        }
+        if (filtrosegment && !org.segment.toLowerCase().includes(filtrosegment.toLowerCase())) {
+            return false;
+        }
+        if (filtrogroup && !org.group.toLowerCase().includes(filtrogroup.toLowerCase())) {
+            return false;
+        }
+        return true;
+    };
+
+    const orgFiltrados = orgs.filter(filtrarOrg);
+    
     return (
         <div>
             <Header title="Lista Organizações" />
@@ -117,7 +134,7 @@ const ListsOrganizations = () => {
                 open={openCreate}
                 handleClose={handleCloseCreate}
                 handleConfirm={postOrg}
-                id={0} name='' phone='' segment='' group=''
+                id={0} name='' phone={{id: 0, name: ""}} segment={{id: 0, name: ""}} group={{id: 0, name: ""}}
                 btnName="Adicionar"
             />
             <InputOrg
@@ -137,7 +154,25 @@ const ListsOrganizations = () => {
                 name={orgData.name}
             />
 
-            <AddButton handleClickOpen={handleClickOpenCreate}/>
+        <AddButton handleClickOpen={handleClickOpenCreate}>
+            <div className='filter'>
+                    <TextField
+                        className='filter' id="filtroname" label="name" type="text" variant="outlined" fullWidth
+                        value={filtroname}
+                        onChange={e => setFiltroname(e.target.value)}
+                    />
+                    <TextField
+                        className='filter' id="filtrosegment" label="segment" type="text" variant="outlined" fullWidth
+                        value={filtrosegment}
+                        onChange={e => setFiltrosegment(e.target.value)}
+                    />
+                    <TextField
+                        className='filter' id="filtrogroup" label="group" type="text" variant="outlined" fullWidth
+                        value={filtrogroup}
+                        onChange={e => setFiltrogroup(e.target.value)}
+                    />
+                </div>
+            </AddButton>
             
             <div className="table-container">
                 <table>
@@ -151,12 +186,12 @@ const ListsOrganizations = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {orgs.map(org => (
-                            <tr key={org.id}>
+                        {orgFiltrados.map(org => (
+                            <tr key={org.id}> 
                                 <td>{org.name}</td>
                                 <td>{org.phone}</td>
-                                <td>{org.segment}</td>
-                                <td>{org.group}</td>
+                                <td>{org.segment?.name ?? ''}</td>
+                                <td>{org.group?.name ?? ''}</td>
                                 <td>
                                     <div className='icones'>
                                         <UpdateButton

@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import InputButton from "./InputButton";
+import InputButton from "./InputButton"; 
 
 /* Área de criar Departamentos*/
 
@@ -39,6 +39,12 @@ const InputDepartment = (props) => {
         setOrgId(props.org_id)
     }, [props.open])
 
+    useEffect(() => {
+        api.get("Org").then(response => {
+            setOrgs(response.data)
+        })
+    }, [])
+
     return (
         <div>
             <Dialog open={props.open} onClose={handleClose}>
@@ -51,11 +57,22 @@ const InputDepartment = (props) => {
                         value={name} sx={{ marginTop: 4 }}
                         onChange={e => setName(e.target.value)}
                     />
-                    <TextField
-                        id="org" label="Organização" type="text" variant="outlined" fullWidth
-                        value={org} sx={{ marginTop: 4 }}
-                        onChange={e => setOrg(e.target.value)}
-                    />
+
+                    <FormControl fullWidth sx={{ marginTop: 4 }}>
+                        <InputLabel id="org-label">Organização</InputLabel>
+                        <Select
+                            labelId="org-label"
+                            id="org"
+                            value={org && org?.id != 0 ? org?.id : ''}
+                            label="org"
+                            onChange={e =>setOrg(org.find(d => d.id == e.target.value))}
+                        >
+                            {org.map(d => (
+                                <MenuItem key={d.id} value={d.id}>{d.name}</MenuItem>
+                            )
+                            )}
+                        </Select>
+                    </FormControl>
                     
                 </DialogContent>
                 <DialogActions style={{ justifyContent: "space-around" }}>

@@ -17,7 +17,7 @@ const ListsDepartament = () => {
     const [openDelete, setOpenDelete] = useState(false)
     const [departmentData, setDepartmentData] = useState({id: 0, name: "", org: "", org_id: 0})
     const [departments, setDepartments] = useState([])
-
+ 
     function handleClickOpenCreate() {
         setOpenCreate(true)
     }
@@ -96,6 +96,18 @@ const ListsDepartament = () => {
         })
     }, [])
 
+    const filtrarDepartamentos = departamentos => {
+        if (filtroname && !departamentos.name.toLowerCase().includes(filtroname.toLowerCase())) {
+            return false;
+        }
+        if (filtroorg && !departamentos.org.toLowerCase().includes(filtroorg.toLowerCase())) {
+            return false;
+        }
+        return true;
+    };
+
+    const departmentosFiltrados = departments.filter(filtrarDepartamentos);    
+
     return (
         <div>
             <Header title="Lista Departamentos" />
@@ -105,7 +117,7 @@ const ListsDepartament = () => {
                 handleClose={handleCloseCreate}
                 handleConfirm={postDepartment}
                 btnName="Adicionar"
-                id={0} name="" org=""
+                id={0} name="" org={{id: 0, name: ""}}
             />
             <InputDepartment
                 open={openUpdate}
@@ -122,7 +134,20 @@ const ListsDepartament = () => {
                 name={departmentData.name}
             />
 
-            <AddButton handleClickOpen={handleClickOpenCreate} />
+            <AddButton handleClickOpen={handleClickOpenCreate}>
+                <div className='filter'>
+                    <TextField
+                        className='filter' id="filtroname" label="name" type="text" variant="outlined" fullWidth
+                        value={filtroname}
+                        onChange={e => setFiltroname(e.target.value)}
+                    />
+                    <TextField
+                        className='filter' id="filtrosorg" label="org" type="text" variant="outlined" fullWidth
+                        value={filtrosorg}
+                        onChange={e => setFiltroorg(e.target.value)}
+                    />
+                </div>
+            </AddButton>
 
             <div className="table-container">
                 <table>
@@ -134,10 +159,10 @@ const ListsDepartament = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {departments.map(department => (
+                        {departmentosFiltrados.map(department => (
                             <tr key={department.id}>
                                 <td>{department.name}</td>
-                                <td>{department.org}</td>
+                                <td>{department.org?.name ?? ''}</td>
                                 <td>
                                     <div className='icones'>
                                         <UpdateButton

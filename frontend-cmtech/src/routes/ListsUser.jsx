@@ -100,7 +100,7 @@ const ListsUser = () => {
         })
     }
 
-    useEffect(() => {
+    useEffect(() => { 
         api.get("User").then(response => {
             setUsers(response.data)
         })
