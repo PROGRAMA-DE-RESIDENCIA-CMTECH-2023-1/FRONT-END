@@ -7,6 +7,7 @@ import Copyright from "../components/Copyright";
 import UpdateButton from '../components/UpdateButton';
 import DeleteButton from '../components/DeleteButton';
 import DeleteDialog from '../components/DeleteDialog';
+import TextField from "@mui/material/TextField";
 import { api } from '../libs/Api';
 
 /* Página Lista de Organizações */
@@ -18,7 +19,9 @@ const ListsOrganizations = () => {
     const [openCreate, setOpenCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)
-    const [orgData, setOrgData] = useState({id: 0, name: '', phone: '', segment: '', segmentId: 0, group: '', groupId: 0})
+    const [orgData, setOrgData] = useState({
+        id: 0, name: '', phone: '', segment: {id: 0, name: ""}, group: {id: 0, name: ""}
+    })
     const [orgs, setOrgs] = useState([])
  
     function handleClickOpenCreate() {
@@ -34,10 +37,8 @@ const ListsOrganizations = () => {
             id: org.id,
             name: org.name,
             phone: org.phone,
-            segment: org.segment,
-            segmentId: org.segmentId,
-            group: org.group,
-            groupId: org.groupId
+            segment: {name: org.segment, id: org.segmentId},
+            group: {name: org.group, id: org.groupId},
         })
         setOpenUpdate(true);
     };
@@ -47,10 +48,8 @@ const ListsOrganizations = () => {
             id: 0,
             name: '',
             phone: '',
-            segment: '',
-            segmentId: 0,
-            group: '',
-            groupId: 0
+            segment: {id: 0, name: ""},
+            group: {id: 0, name: ""}
         })
         setOpenUpdate(false);
     };
@@ -60,10 +59,8 @@ const ListsOrganizations = () => {
             id: org.id,
             name: org.name,
             phone: org.phone,
-            segment: org.segment,
-            segmentId: org.segmentId,
-            group: org.group,
-            groupId: org.groupId
+            segment: {name: org.segment, id: org.segmentId},
+            group: {name: org.group, id: org.groupId},
         })
         setOpenDelete(true)
     }
@@ -73,10 +70,8 @@ const ListsOrganizations = () => {
             id: 0,
             name: '',
             phone: '',
-            segment: '',
-            segmentId: 0,
-            group: '',
-            groupId: 0
+            segment: {id: 0, name: ""},
+            group: {id: 0, name: ""}
         })
         setOpenDelete(false)
     }
@@ -115,10 +110,10 @@ const ListsOrganizations = () => {
         if (filtroname && !org.name.toLowerCase().includes(filtroname.toLowerCase())) {
             return false;
         }
-        if (filtrosegment && !org.segment.toLowerCase().includes(filtrosegment.toLowerCase())) {
+        if (filtrosegment && !org.segment.name.toLowerCase().includes(filtrosegment.toLowerCase())) {
             return false;
         }
-        if (filtrogroup && !org.group.toLowerCase().includes(filtrogroup.toLowerCase())) {
+        if (filtrogroup && !org.group.name.toLowerCase().includes(filtrogroup.toLowerCase())) {
             return false;
         }
         return true;
@@ -134,7 +129,7 @@ const ListsOrganizations = () => {
                 open={openCreate}
                 handleClose={handleCloseCreate}
                 handleConfirm={postOrg}
-                id={0} name='' phone={{id: 0, name: ""}} segment={{id: 0, name: ""}} group={{id: 0, name: ""}}
+                id={0} name='' phone='' segment={{id: 0, name: ""}} group={{id: 0, name: ""}}
                 btnName="Adicionar"
             />
             <InputOrg
@@ -142,8 +137,7 @@ const ListsOrganizations = () => {
                 handleClose={handleCloseUpdate}
                 handleConfirm={putOrg}
                 id={orgData.id} name={orgData.name} phone={orgData.phone}
-                segment={orgData.segment} segmentId={orgData.segmentId}
-                group={orgData.group} groupId={orgData.groupId}
+                segment={orgData.segment} group={orgData.group}
                 btnName="Atualizar"
             />
             <DeleteDialog
@@ -190,8 +184,8 @@ const ListsOrganizations = () => {
                             <tr key={org.id}> 
                                 <td>{org.name}</td>
                                 <td>{org.phone}</td>
-                                <td>{org.segment?.name ?? ''}</td>
-                                <td>{org.group?.name ?? ''}</td>
+                                <td>{org.segment ?? ''}</td>
+                                <td>{org.group ?? ''}</td>
                                 <td>
                                     <div className='icones'>
                                         <UpdateButton
