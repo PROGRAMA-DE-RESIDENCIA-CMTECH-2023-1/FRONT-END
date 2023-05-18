@@ -31,8 +31,10 @@ const InputOrg = (props) => {
             id: id,
             name: name,
             phone: phone,
-            segment: segment,
-            group: group,
+            segmentId: segment.id,
+            segment: segment.name,
+            groupId: group.id,
+            group: group.name,
         }
         props.handleConfirm(newOrg)
         props.handleClose()

@@ -4,14 +4,21 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
-import Copyright from "../components/Copyright";
+import { api } from '../libs/Api';
 
 /* Página Login */
 
 const Login = () => {
 
     const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
+    const [password, setPassword] = useState("")
+
+    async function login() {
+        await api.post("Login", {email: email, password: password}).then(response => {
+            console.log(response.data)
+        })
+    }
+
     return(
         <div className='Login'> 
             <div className='Data'>
@@ -24,11 +31,16 @@ const Login = () => {
                     />
                     <TextField
                         className='input'id="senha" label="Senha" variant="outlined" margin="normal" fullWidth
-                        value={senha} sx={{marginTop: 4}} type="password"
-                        onChange={e => setSenha(e.target.value)}
+                        value={password} sx={{marginTop: 4}} type="password"
+                        onChange={e => setPassword(e.target.value)}
                     />                    
                     <Link to="/EsqueciSenha" className='Sublink'><p>Esqueci minha senha</p></Link>
-                    <Button variant='contained' color='secondary' sx={{background: '#4B0054', marginTop: 4,width:395}}>Entrar</Button>
+                    <Button
+                        variant='contained' color='secondary' sx={{background: '#4B0054', marginTop: 4,width:395}}
+                        onClick={login}
+                        >
+                            Entrar
+                    </Button>
                 </form>
             </div> 
         </div>

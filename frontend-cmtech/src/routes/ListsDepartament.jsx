@@ -166,7 +166,7 @@ const ListsDepartament = () => {
                         {departmentosFiltrados.map(department => (
                             <tr key={department.id}>
                                 <td>{department.name}</td>
-                                <td>{department.org?.name ?? ''}</td>
+                                <td>{department.org ?? ''}</td>
                                 <td>
                                     <div className='icones'>
                                         <UpdateButton
