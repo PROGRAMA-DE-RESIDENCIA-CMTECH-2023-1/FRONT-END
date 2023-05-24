@@ -1,7 +1,6 @@
 import './Header.css'
 
 import { Link } from "react-router-dom";
-
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -17,7 +16,7 @@ const Header = (props) => {
             <div className='Options'>
                 <Link>
                     <EmailOutlinedIcon/>
-                </Link>
+                </Link> 
                 <Link>
                     <NotificationsNoneOutlinedIcon/> 
                 </Link>

@@ -28,7 +28,7 @@ const Home = () => {
             <Header title="Home" />
             <div className='right-div'>
                 <AccountCircleIcon sx={sx} />
-                <h3 className='text' onClick={logout}>Olá Nome usuário, tudo bem?</h3>
+                <h3 className='text' onClick={logout}>Olá Nome usuário</h3>
             </div>
             <div className='copy'>
                 <Copyright sx={{ pt: 4 }} />
