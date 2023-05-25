@@ -46,9 +46,9 @@ const ListsPopover = ({ to, children }) => {
 
     return (
         <li className={liClass}>
-            <Link>
+            <a>
                 <DashboardOutlinedIcon aria-describedby="id" onClick={(e) => handleClick(e)} sx={sx} />
-            </Link>
+            </a>
             <Popover className="ListsPopover"
                     id={id} open={open} anchorEl={anchor} onClose={handleClose}
                     anchorOrigin={{ vertical: 'center', horizontal: 55 }}

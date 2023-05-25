@@ -1,5 +1,5 @@
 import './Lists.css'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
 import InputDepartment from '../components/InputDepartment';
@@ -9,6 +9,7 @@ import DeleteButton from '../components/DeleteButton';
 import DeleteDialog from '../components/DeleteDialog';
 import TextField from "@mui/material/TextField";
 import { api } from '../libs/Api';
+import { TokenContext } from '../token/TokenContext';
 
 /* Página Lista de Departamentos */
 
@@ -20,6 +21,12 @@ const ListsDepartament = () => {
     const [departments, setDepartments] = useState([])
     const [filtroname, setFiltroname] = useState('')
     const [filtroorg, setFiltroorg] = useState('')
+    const { openSnack, token } = useContext(TokenContext)
+    const config = {
+        headers: {
+            Authorization: `bearer ${token}`
+        }
+    }
 
  
     function handleClickOpenCreate() {
@@ -71,32 +78,40 @@ const ListsDepartament = () => {
     }
 
     async function postDepartment(newDepartment) {
-        await api.post("Department", newDepartment).then(response => {
+        await api.post("Department", config, newDepartment).then(response => {
             setDepartments([...departments, response.data])
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     async function putDepartment(newDepartment) {
-        await api.put("Department", newDepartment).then(response => {
+        await api.put("Department", config, newDepartment).then(response => {
             const filterDepartments = departments.filter(d => d != response.data.id)
             setDepartments([...filterDepartments, response.data])
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     async function deleteDepartment(departmentId) {
         console.log(departmentId)
-        await api.delete("Department", {
+        await api.delete("Department", config, {
             params: {
                 id: departmentId
             }
         }).then(response => {
             setDepartments(response.data)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     useEffect(() => {
-        api.get("Department").then(response => {
+        api.get("Department", config).then(response => {
             setDepartments(response.data)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }, [])
 

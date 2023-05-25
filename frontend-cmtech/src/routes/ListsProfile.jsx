@@ -1,5 +1,5 @@
 import './Lists.css'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
 import InputProfile from '../components/InputProfile';
@@ -8,6 +8,7 @@ import UpdateButton from '../components/UpdateButton';
 import DeleteButton from '../components/DeleteButton';
 import { api } from '../libs/Api';
 import DeleteDialog from '../components/DeleteDialog';
+import { TokenContext } from '../token/TokenContext';
 
 /* Página Lista de Perfis */
 
@@ -18,6 +19,12 @@ const ListsProfile = () => {
     const [openDelete, setOpenDelete] = useState(false)
     const [profileData, setProfileData] = useState({ id: 0, name: '' })
     const [profiles, setProfiles] = useState([])
+    const { openSnack, token } = useContext(TokenContext)
+    const config = {
+        headers: {
+            Authorization: `bearer ${token}`
+        }
+    }
 
     function handleClickOpenCreate() {
         setOpenCreate(true);
@@ -60,32 +67,40 @@ const ListsProfile = () => {
     }
 
     async function postProfile(newProfile) {
-        await api.post("Profile", newProfile).then(response => {
+        await api.post("Profile", config, newProfile).then(response => {
             setProfiles([...profiles, response.data])
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     async function putProfile(newProfile) {
-        await api.put("Profile", newProfile).then(response => {
+        await api.put("Profile", config, newProfile).then(response => {
             let filterProfiles = profiles.filter(p => p.id != response.data.id)
             filterProfiles = [...filterProfiles, response.data]
             setProfiles(filterProfiles)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     async function deleteProfile(profileId) {
-        await api.delete("Profile", {
+        await api.delete("Profile", config, {
             params: {
                 id: profileId
             }
         }).then(response => {
             setProfiles(response.data)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     useEffect(() => {
-        api.get("Profile").then(response => {
+        api.get("Profile", config).then(response => {
             setProfiles(response.data)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }, [])
 

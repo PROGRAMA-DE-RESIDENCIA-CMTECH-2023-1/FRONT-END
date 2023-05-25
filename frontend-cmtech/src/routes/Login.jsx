@@ -1,5 +1,5 @@
 import './Login.css';
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
@@ -14,6 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const { token, saveToken, deleteToken } = useContext(TokenContext)
     const navigate = useNavigate()
+    const shouldAutoLogin = useRef(true)
 
     async function login() {
         await api.post("Login", { email: email, password: password }).then(response => {
@@ -22,23 +23,22 @@ const Login = () => {
         })
     }
 
-    useEffect(() => {
-        if(token) {
-            api.get("Validation", {
-                params: {
-                    token: token
-                }
-            }).then(response => {
-                if(response.data) {
-                    navigate("Home")
-                }
-                else {
-                    console.log("token inválido")
-                    deleteToken()
-                }
-            })
-        }
-    }, [])
+    // useEffect(() => {
+    //     if(token && shouldAutoLogin.current) {
+    //         try {
+    //             api.get("Validation", {
+    //                 params: {
+    //                     token: token
+    //                 }
+    //             })
+    //             navigate("Home")
+    //             shouldAutoLogin.current = false
+    //         } catch {
+    //             console.log("Token inválido")
+    //             deleteToken()
+    //         }
+    //     }
+    // }, [])
 
     return (
         <div className='Login'>

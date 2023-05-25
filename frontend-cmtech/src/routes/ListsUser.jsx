@@ -1,5 +1,5 @@
 import './Lists.css'
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
 import { TextField } from '@mui/material';
@@ -9,6 +9,7 @@ import UpdateButton from '../components/UpdateButton';
 import DeleteButton from '../components/DeleteButton';
 import DeleteDialog from '../components/DeleteDialog';
 import { api } from '../libs/Api';
+import { TokenContext } from '../token/TokenContext';
 
 
 /* Página Lista de Usuários */
@@ -24,6 +25,12 @@ const ListsUser = () => {
         {id: 0, name: '', profile: {id: 0, name: ''}, department: {id: 0, name: ''}, org: {id: 0, name: ''}, online:''}
     )
     const [users, setUsers] = useState([])
+    const { openSnack, token } = useContext(TokenContext)
+    const config = {
+        headers: {
+            Authorization: `bearer ${token}`
+        }
+    }
 
     function handleClickOpenCreate() {
         setOpenCreate(true);
@@ -78,31 +85,39 @@ const ListsUser = () => {
     }
 
     async function postUser(newUser) {
-        await api.post("User", newUser).then(response => {
+        await api.post("User", config, newUser).then(response => {
             setUsers([...users, response.data])
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     async function putUser(newUser) {
-        await api.put("User", newUser).then(response => {
+        await api.put("User", config, newUser).then(response => {
             const filterUsers = users.filter(u => u.id != response.data.id)
             setUsers([...filterUsers, response.data])
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     async function deleteUser(userId) {
-        await api.delete("User", {
+        await api.delete("User", config, {
             params: {
                 id: userId
             }
         }).then(response => {
             setUsers(response.data)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     useEffect(() => { 
-        api.get("User").then(response => {
+        api.get("User", config).then(response => {
             setUsers(response.data)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }, [])
 

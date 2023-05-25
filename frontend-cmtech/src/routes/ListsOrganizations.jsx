@@ -1,5 +1,5 @@
 import './Lists.css'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton'
 import InputOrg from '../components/InputOrg';
@@ -9,6 +9,7 @@ import DeleteButton from '../components/DeleteButton';
 import DeleteDialog from '../components/DeleteDialog';
 import TextField from "@mui/material/TextField";
 import { api } from '../libs/Api';
+import { TokenContext } from '../token/TokenContext';
 
 /* Página Lista de Organizações */
 
@@ -23,6 +24,12 @@ const ListsOrganizations = () => {
         id: 0, name: '', phone: '', segment: {id: 0, name: ""}, group: {id: 0, name: ""}
     })
     const [orgs, setOrgs] = useState([])
+    const { openSnack, token } = useContext(TokenContext)
+    const config = {
+        headers: {
+            Authorization: `bearer ${token}`
+        }
+    }
  
     function handleClickOpenCreate() {
         setOpenCreate(true); 
@@ -77,32 +84,40 @@ const ListsOrganizations = () => {
     }
 
     async function postOrg(newOrg) {
-        await api.post("Org", newOrg).then(response => {
+        await api.post("Org", config, newOrg).then(response => {
             setOrgs([...orgs, response.data])
+        }).catch(error => {
+            setSnack(true, error)
         })
     }
 
     async function putOrg(newOrg) {
-        await api.put("Org", newOrg).then(response => {
+        await api.put("Org", config, newOrg).then(response => {
             let filterOrgs = orgs.filter(o => o.id != response.data.id)
             filterOrgs = [...filterOrgs, response.data]
             setOrgs(filterOrgs)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     async function deleteOrg(orgId) {
-        await api.delete("Org", {
+        await api.delete("Org", config, {
             params: {
                 id: orgId
             }
         }).then(response => {
             setOrgs(response.data)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }
 
     useEffect(() => {
-        api.get("Org").then(response => {
+        api.get("Org", config).then(response => {
             setOrgs(response.data)
+        }).catch(error => {
+            openSnack(error.message)
         })
     }, [])
 
