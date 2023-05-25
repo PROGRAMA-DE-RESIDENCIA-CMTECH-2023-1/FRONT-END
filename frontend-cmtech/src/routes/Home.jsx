@@ -6,6 +6,8 @@ import Header from "../components/Header";
 import Copyright from "../components/Copyright";
 import { TokenContext } from '../token/TokenContext';
 import { useNavigate } from 'react-router';
+import { api } from '../libs/Api'
+import TokenRequired from '../token/TokenRequired';
 
 const sx = {
     height: '8vh',
@@ -16,24 +18,20 @@ const sx = {
 /* Página Início */
 
 const Home = () => {
-    const { deleteToken } = useContext(TokenContext)
-    const navigate = useNavigate()
 
-    function logout() {
-        deleteToken()
-        navigate("/")
-    }
     return (
-        <div className='Home'>
-            <Header title="Home" />
-            <div className='right-div'>
-                <AccountCircleIcon sx={sx} />
-                <h3 className='text' onClick={logout}>Olá Nome usuário</h3>
+        <TokenRequired>
+            <div className='Home'>
+                <Header title="Home" />
+                <div className='right-div'>
+                    <AccountCircleIcon sx={sx} />
+                    <h3 className='text' >Olá Nome usuário</h3>
+                </div>
+                <div className='copy'>
+                    <Copyright sx={{ pt: 4 }} />
+                </div>
             </div>
-            <div className='copy'>
-                <Copyright sx={{ pt: 4 }} />
-            </div>
-        </div>
+        </TokenRequired>
     )
 }
 
