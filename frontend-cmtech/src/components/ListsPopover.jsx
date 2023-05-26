@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './ListsPopover.css'
 import { Link, useResolvedPath, useMatch } from "react-router-dom";
 import Popover from '@mui/material/Popover';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import { TokenContext } from '../token/TokenContext';
 
 /* Icones da NavBar */
 
@@ -12,12 +13,13 @@ const sx = {
     margin: '1vh'
 }
 
-const ListsPopover = ({ to, children }) => {
+const ListsPopover = ({ validate, to }) => {
 
     const resolvedPath = useResolvedPath("/Lists")
     const isActive = useMatch({ path: resolvedPath.pathname, end: true })
     const [isSelected, setIsSelected] = useState(false)
     const [liClass, setLiClass] = useState()
+    const { openSnack } = useContext(TokenContext)
 
     const [anchor, setAnchor] = useState(null)
 
@@ -29,6 +31,10 @@ const ListsPopover = ({ to, children }) => {
     const handleClose = () => {
         setAnchor(null)
         setIsSelected(false)
+
+        if (!validate) {
+            openSnack("Faça o Login para acessar essa aba")
+        }
     }
 
     const open = Boolean(anchor)
@@ -37,7 +43,7 @@ const ListsPopover = ({ to, children }) => {
     useEffect(() => {
         if(isActive) {
             setLiClass('active')
-        } else if(open) {
+        } else if(isSelected) {
             setLiClass('selected')
         } else {
             setLiClass('inactive')
@@ -58,7 +64,7 @@ const ListsPopover = ({ to, children }) => {
                         {to.map((link, i) => {
                             return (
                                 <li key={i}>
-                                    <Link to={link.route} onClick={handleClose}>
+                                    <Link to={validate ? link.route : "/"} onClick={handleClose}>
                                         {link.title}
                                     </Link>
                                 </li>

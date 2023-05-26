@@ -1,13 +1,10 @@
 import './Home.css'
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Header from "../components/Header";
 import Copyright from "../components/Copyright";
-import { TokenContext } from '../token/TokenContext';
-import { useNavigate } from 'react-router';
-import { api } from '../libs/Api'
-import TokenRequired from '../token/TokenRequired';
+import { useNavigate } from 'react-router-dom';
 
 const sx = {
     height: '8vh',
@@ -20,18 +17,16 @@ const sx = {
 const Home = () => {
 
     return (
-        <TokenRequired>
-            <div className='Home'>
-                <Header title="Home" />
-                <div className='right-div'>
-                    <AccountCircleIcon sx={sx} />
-                    <h3 className='text' >Olá Nome usuário</h3>
-                </div>
-                <div className='copy'>
-                    <Copyright sx={{ pt: 4 }} />
-                </div>
+        <div className='Home'>
+            <Header title="Home" />
+            <div className='right-div'>
+                <AccountCircleIcon sx={sx} />
+                <h3 className='text' >Olá Nome usuário</h3>
             </div>
-        </TokenRequired>
+            <div className='copy'>
+                <Copyright sx={{ pt: 4 }} />
+            </div>
+        </div>
     )
 }
 
