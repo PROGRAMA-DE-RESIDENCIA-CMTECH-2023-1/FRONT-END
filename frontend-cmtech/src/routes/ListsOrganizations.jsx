@@ -144,6 +144,7 @@ const ListsOrganizations = () => {
                 open={openCreate}
                 handleClose={handleCloseCreate}
                 handleConfirm={postOrg}
+                config={config}
                 id={0} name='' phone='' segment={{id: 0, name: ""}} group={{id: 0, name: ""}}
                 btnName="Adicionar"
             />
@@ -151,6 +152,7 @@ const ListsOrganizations = () => {
                 open={openUpdate}
                 handleClose={handleCloseUpdate}
                 handleConfirm={putOrg}
+                config={config}
                 id={orgData.id} name={orgData.name} phone={orgData.phone}
                 segment={orgData.segment} group={orgData.group}
                 btnName="Atualizar"

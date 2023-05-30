@@ -43,7 +43,7 @@ const InputDepartment = (props) => {
     }, [props.open])
 
     useEffect(() => {
-        api.get("Org").then(response => {
+        api.get("Org", props.config).then(response => {
             setOrgs(response.data)
         })
     }, [])

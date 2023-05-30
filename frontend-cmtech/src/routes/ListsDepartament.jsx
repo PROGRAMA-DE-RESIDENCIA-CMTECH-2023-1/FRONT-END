@@ -27,7 +27,6 @@ const ListsDepartament = () => {
             Authorization: `bearer ${token}`
         }
     }
-
  
     function handleClickOpenCreate() {
         setOpenCreate(true)
@@ -135,6 +134,7 @@ const ListsDepartament = () => {
                 open={openCreate}
                 handleClose={handleCloseCreate}
                 handleConfirm={postDepartment}
+                config={config}
                 btnName="Adicionar"
                 id={0} name="" org={{id: 0, name: ""}}
             />
@@ -142,6 +142,7 @@ const ListsDepartament = () => {
                 open={openUpdate}
                 handleClose={handleCloseUpdate}
                 handleConfirm={putDepartment}
+                config={config}
                 btnName="Atualizar"
                 id={departmentData.id} name={departmentData.name} org={departmentData.org} org_id={departmentData.org_id}
             />

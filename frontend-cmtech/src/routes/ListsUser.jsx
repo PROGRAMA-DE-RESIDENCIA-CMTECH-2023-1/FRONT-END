@@ -144,6 +144,7 @@ const ListsUser = () => {
                 open={openCreate}
                 handleClose={handleCloseCreate}
                 handleConfirm={postUser}
+                config={config}
                 btnName="Adicionar"
                 id={0} name="" profile={{id: 0, name: ""}} department={{id: 0, name: ""}} org={{id: 0, name: ""}}
             />
@@ -151,6 +152,7 @@ const ListsUser = () => {
                 open={openUpdate}
                 handleClose={handleCloseUpdate}
                 handleConfirm={putUser}
+                config={config}
                 btnName="Atualizar"
                 id={userData.id} name={userData.name} profile={userData.profile} department={userData.department} org={userData.org}
             />

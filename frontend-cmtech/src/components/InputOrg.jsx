@@ -49,10 +49,10 @@ const InputOrg = (props) => {
     }, [props.open])
 
     useEffect(() => {
-        api.get("Segment").then(response => {
+        api.get("Segment", props.config).then(response => {
             setSegments(response.data)
         })
-        api.get("Group").then(response => {
+        api.get("Group", props.config).then(response => {
             setGroups(response.data)
         })
     }, [])

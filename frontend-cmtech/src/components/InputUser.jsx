@@ -48,13 +48,13 @@ const InputUser = (props) => {
     }, [props.open])
 
     useEffect(() => {
-        api.get("Profile").then(response => {
+        api.get("Profile", props.config).then(response => {
             setProfiles(response.data)
         })
-        api.get("Department").then(response => {
+        api.get("Department", props.config).then(response => {
             setDepartments(response.data)
         })
-        api.get("Org").then(response => {
+        api.get("Org", props.config).then(response => {
             setOrgs(response.data)
         })
     }, [])
