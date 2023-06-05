@@ -62,7 +62,8 @@ export default function Chat() {
       message: message
     }
     try {
-      await connection.send('SendMessage', chatMessage)
+      await connection.invoke('SendMessage', chatMessage)
+      console.log(chatMessage)
     }
     catch (e) {
       console.log(e)
@@ -79,7 +80,7 @@ export default function Chat() {
       .withAutomaticReconnect()
       .configureLogging(signalR.LogLevel.Information)
       .build()
-
+      
     setConnection(newConnection)
 
   }, [])
