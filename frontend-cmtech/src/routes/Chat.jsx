@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -16,6 +16,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import Copyright from "../components/Copyright";
+import { api } from "../libs/Api"
+import * as signalR from "@microsoft/signalr"
+
 
 /* Página Chat */
 
@@ -29,24 +32,68 @@ export default function Chat() {
     }
   ]);
   const [text, setText] = useState('');
+  const [connection, setConnection] = useState(null);
 
-  const handleSendMessage =() => {
+  const updateChat = (message) => {
+    setMessages(prev => [
+      ...prev,
+      {
+        id: Math.floor(Math.random() * 10),
+        align: messages?.length % 2 === 0 ? "right" : "left",
+        message: message,
+        time: new Date().toLocaleTimeString()
+      }
+    ])
+  }
+
+  const handleSendMessage = () => {
     if (text) {
-      setMessages(prev => [
-        ...prev,
-        {
-          id: Math.floor(Math.random() * 10),
-          align: messages?.length % 2 === 0 ? "right" : "left",
-          message: text,
-          time: new Date().toLocaleTimeString()
-        }
-      ]);
-
-      setText('');
+      sendMessage("a", text)
+      updateChat(text)
+      setText('')
     } else {
       alert('Preencha a mensagem para enviar');
     }
   }
+
+  const sendMessage = async (user, message) => {
+    const chatMessage = {
+      user: user,
+      message: message
+    }
+    try {
+      await connection.send('SendMessage', chatMessage)
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+    const newConnection = new signalR.HubConnectionBuilder()
+      .withUrl('https://localhost:7275/chat', {
+        withCredentials: true,
+        skipNegotiation: true,
+        transport: signalR.HttpTransportType.WebSockets
+      })
+      .withAutomaticReconnect()
+      .configureLogging(signalR.LogLevel.Information)
+      .build()
+
+    setConnection(newConnection)
+
+  }, [])
+
+  useEffect(() => {
+    if (connection) {
+      connection.start().then(result => {
+        console.log("Conectado")
+        connection.on("RecieveMessage", message => {
+          updateChat(message.message)
+        })
+      })
+    }
+  }, [connection])
 
   return (
     <Box
@@ -119,7 +166,7 @@ export default function Chat() {
                         <ListItemText primary="Matheus Cunha">
                           User 2
                         </ListItemText>
-                         <RadioButtonCheckedIcon style={{ color: '#00a000' }} />
+                        <RadioButtonCheckedIcon style={{ color: '#00a000' }} />
                         <ListItemText
                           secondary="online"
                           align="right"
@@ -151,24 +198,24 @@ export default function Chat() {
                     <List style={{ height: "70vh", overflowY: "auto" }}>
                       {messages?.length > 0 ? (
                         <>
-                        {messages.map((item, key) => (
-                          <ListItem key={key}>
-                            <Grid container>
-                              <Grid item xs={12}>
-                                <ListItemText
-                                  align={item.align}
-                                  primary={item.message}
-                                ></ListItemText>
+                          {messages.map((item, key) => (
+                            <ListItem key={key}>
+                              <Grid container>
+                                <Grid item xs={12}>
+                                  <ListItemText
+                                    align={item.align}
+                                    primary={item.message}
+                                  ></ListItemText>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <ListItemText
+                                    align={item.align}
+                                    secondary={item.time}
+                                  ></ListItemText>
+                                </Grid>
                               </Grid>
-                              <Grid item xs={12}>
-                                <ListItemText
-                                  align={item.align}
-                                  secondary={item.time}
-                                ></ListItemText>
-                              </Grid>
-                            </Grid>
-                          </ListItem>
-                        ))}
+                            </ListItem>
+                          ))}
                         </>
                       ) : ('Nenhum mensagem enviada')}
                     </List>
@@ -190,7 +237,7 @@ export default function Chat() {
                         />
                       </Grid>
                       <Grid item xs={1} align="right">
-                        <Fab color="primary" aria-label="add" onClick={handleSendMessage}  style={{ background: '#172070' }}>
+                        <Fab color="primary" aria-label="add" onClick={handleSendMessage} style={{ background: '#172070' }}>
                           <SendIcon />
                         </Fab>
                       </Grid>

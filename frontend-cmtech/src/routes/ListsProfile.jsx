@@ -85,7 +85,10 @@ const ListsProfile = () => {
     }
 
     async function deleteProfile(profileId) {
-        await api.delete("Profile", config, {
+        await api.delete("Profile", {
+            headers: {
+                Authorization: `bearer ${token}`
+            },
             params: {
                 id: profileId
             }

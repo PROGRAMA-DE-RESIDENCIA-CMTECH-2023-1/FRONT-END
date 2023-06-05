@@ -102,7 +102,10 @@ const ListsUser = () => {
     }
 
     async function deleteUser(userId) {
-        await api.delete("User", config, {
+        await api.delete("User", {
+            headers: {
+                Authorization: `bearer ${token}`
+            },
             params: {
                 id: userId
             }

@@ -95,7 +95,10 @@ const ListsDepartament = () => {
 
     async function deleteDepartment(departmentId) {
         console.log(departmentId)
-        await api.delete("Department", config, {
+        await api.delete("Department", {
+            headers: {
+                Authorization: `bearer ${token}`
+            },
             params: {
                 id: departmentId
             }

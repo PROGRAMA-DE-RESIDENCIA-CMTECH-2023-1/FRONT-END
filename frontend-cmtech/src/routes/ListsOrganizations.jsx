@@ -102,7 +102,10 @@ const ListsOrganizations = () => {
     }
 
     async function deleteOrg(orgId) {
-        await api.delete("Org", config, {
+        await api.delete("Org", {
+            headers: {
+                Authorization: `bearer ${token}`
+            },
             params: {
                 id: orgId
             }
