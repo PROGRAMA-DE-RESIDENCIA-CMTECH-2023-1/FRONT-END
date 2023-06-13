@@ -67,7 +67,7 @@ const ListsProfile = () => {
     }
 
     async function postProfile(newProfile) {
-        await api.post("Profile", config, newProfile).then(response => {
+        await api.post("Profile", newProfile, config).then(response => {
             setProfiles([...profiles, response.data])
         }).catch(error => {
             openSnack(error.message)
@@ -75,7 +75,7 @@ const ListsProfile = () => {
     }
 
     async function putProfile(newProfile) {
-        await api.put("Profile", config, newProfile).then(response => {
+        await api.put("Profile", newProfile, config).then(response => {
             let filterProfiles = profiles.filter(p => p.id != response.data.id)
             filterProfiles = [...filterProfiles, response.data]
             setProfiles(filterProfiles)

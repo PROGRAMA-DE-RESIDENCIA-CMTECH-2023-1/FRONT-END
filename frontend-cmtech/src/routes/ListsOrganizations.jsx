@@ -84,7 +84,7 @@ const ListsOrganizations = () => {
     }
 
     async function postOrg(newOrg) {
-        await api.post("Org", config, newOrg).then(response => {
+        await api.post("Org", newOrg, config).then(response => {
             setOrgs([...orgs, response.data])
         }).catch(error => {
             setSnack(true, error)
@@ -92,7 +92,7 @@ const ListsOrganizations = () => {
     }
 
     async function putOrg(newOrg) {
-        await api.put("Org", config, newOrg).then(response => {
+        await api.put("Org", newOrg, config).then(response => {
             let filterOrgs = orgs.filter(o => o.id != response.data.id)
             filterOrgs = [...filterOrgs, response.data]
             setOrgs(filterOrgs)

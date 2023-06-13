@@ -77,7 +77,7 @@ const ListsDepartament = () => {
     }
 
     async function postDepartment(newDepartment) {
-        await api.post("Department", config, newDepartment).then(response => {
+        await api.post("Department", newDepartment, config).then(response => {
             setDepartments([...departments, response.data])
         }).catch(error => {
             openSnack(error.message)
@@ -85,7 +85,7 @@ const ListsDepartament = () => {
     }
 
     async function putDepartment(newDepartment) {
-        await api.put("Department", config, newDepartment).then(response => {
+        await api.put("Department", newDepartment, config).then(response => {
             const filterDepartments = departments.filter(d => d != response.data.id)
             setDepartments([...filterDepartments, response.data])
         }).catch(error => {

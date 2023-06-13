@@ -16,7 +16,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import Copyright from "../components/Copyright";
-import { api } from "../libs/Api"
 import * as signalR from "@microsoft/signalr"
 
 
@@ -48,7 +47,7 @@ export default function Chat() {
 
   const handleSendMessage = () => {
     if (text) {
-      sendMessage("a", text)
+      sendMessage("a", text, 6)
       updateChat(text)
       setText('')
     } else {
@@ -56,13 +55,14 @@ export default function Chat() {
     }
   }
 
-  const sendMessage = async (user, message) => {
+  const sendMessage = async (user, message, recieverId) => {
     const chatMessage = {
       user: user,
-      message: message
+      message: message,
+      recieverId: recieverId
     }
     try {
-      await connection.invoke('SendMessage', chatMessage)
+      await connection.send('SendMessage', chatMessage)
       console.log(chatMessage)
     }
     catch (e) {
@@ -88,7 +88,6 @@ export default function Chat() {
   useEffect(() => {
     if (connection) {
       connection.start().then(result => {
-        console.log("Conectado")
         connection.on("RecieveMessage", message => {
           updateChat(message.message)
         })

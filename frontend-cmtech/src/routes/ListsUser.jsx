@@ -85,7 +85,7 @@ const ListsUser = () => {
     }
 
     async function postUser(newUser) {
-        await api.post("User", config, newUser).then(response => {
+        await api.post("User", newUser, config).then(response => {
             setUsers([...users, response.data])
         }).catch(error => {
             openSnack(error.message)
@@ -93,7 +93,7 @@ const ListsUser = () => {
     }
 
     async function putUser(newUser) {
-        await api.put("User", config, newUser).then(response => {
+        await api.put("User", newUser, config).then(response => {
             const filterUsers = users.filter(u => u.id != response.data.id)
             setUsers([...filterUsers, response.data])
         }).catch(error => {

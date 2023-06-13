@@ -31,9 +31,15 @@ const InputUser = (props) => {
         const newUser = {
             id: id,
             name: name,
-            profile: profile,
-            department: department,
-            org: org
+            email: name,
+            password: "",
+            dateRegister: "",
+            profileId: profile.id,
+            profile: profile.name,
+            departmentId: department.id,
+            department: department.name,
+            orgId: org.id,
+            org: org.name
         }
         props.handleConfirm(newUser)
         props.handleClose()
@@ -96,7 +102,10 @@ const InputUser = (props) => {
                             id="department"
                             value={department && department?.id != 0 ? department?.id : ''}
                             label="department"
-                            onChange={e =>setDepartment(departments.find(d => d.id == e.target.value))}
+                            onChange={e => {
+                                setDepartment(departments.find(d => d.id == e.target.value),
+                                console.log(department.id)
+                            )}}
                         >
                             {departments.map(d => (
                                 <MenuItem key={d.id} value={d.id}>{d.name}</MenuItem>
