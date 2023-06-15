@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import InputButton from "./InputButton";
 import { api } from '../libs/Api';
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, Chip, Box, MenuItem, Select } from "@mui/material";
 
 /* Área de criar Usuários*/
 
@@ -17,10 +17,12 @@ const InputUser = (props) => {
     const [id, setId] = useState(props.id)
     const [name, setName] = useState(props.name)
     const [profile, setProfile] = useState(props.profile)
-    const [department, setDepartment] = useState(props.department)
+    const [profileId, setProfileId] = useState(props.profileId)
+    const [departments, setDepartments] = useState(props.departments)
+    const [departmentsId, setDepartmentsId] = useState(props.departmentsId)
     const [org, setOrg] = useState(props.org)
     const [profiles, setProfiles] = useState([])
-    const [departments, setDepartments] = useState([])
+    const [departmentsList, setDepartmentsList] = useState([])
     const [orgs, setOrgs] = useState([])
 
     function handleClose() {
@@ -34,22 +36,25 @@ const InputUser = (props) => {
             email: name,
             password: "",
             dateRegister: "",
-            profileId: profile.id,
-            profile: profile.name,
-            departmentId: department.id,
-            department: department.name,
+            profileId: profileId,
+            profile: profile,
+            departmentsId: departmentsId,
+            departments: departments,
             orgId: org.id,
             org: org.name
         }
-        props.handleConfirm(newUser)
-        props.handleClose()
+        console.log(newUser)
+        //props.handleConfirm(newUser)
+        //props.handleClose()
     }
 
     useEffect(() => {
         setId(props.id)
         setName(props.name)
         setProfile(props.profile)
-        setDepartment(props.department) 
+        setProfileId(props.profileId)
+        setDepartments(props.departments) 
+        setDepartmentsId(props.departmentsId)
         setOrg(props.org)
     }, [props.open])
 
@@ -58,7 +63,7 @@ const InputUser = (props) => {
             setProfiles(response.data)
         })
         api.get("Department", props.config).then(response => {
-            setDepartments(response.data)
+            setDepartmentsList(response.data)
         })
         api.get("Org", props.config).then(response => {
             setOrgs(response.data)
@@ -84,14 +89,17 @@ const InputUser = (props) => {
                         <Select
                             labelId="profile-label"
                             id="profile"
-                            value={profile && profile?.id != 0 ? profile?.id : ''}
+                            value={profile && profileId != 0 ? profileId : ''}
                             label="Profile"
-                            onChange={e => setProfile(profiles.find(p => p.id == e.target.value))}
+                            onChange={e => {
+                                setProfileId(e.target.value)
+                                setProfile(profiles.find(p => p.id == e.target.value).name)
+                            }
+                            }
                         >
                             {profiles.map(p => (
                                 <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>
-                            )
-                            )}
+                                ))}
                         </Select>
                     </FormControl>
 
@@ -99,15 +107,25 @@ const InputUser = (props) => {
                         <InputLabel id="department-label">Departamento</InputLabel>
                         <Select
                             labelId="department-label"
-                            id="department"
-                            value={department && department?.id != 0 ? department?.id : ''}
-                            label="department"
-                            onChange={e => {
-                                setDepartment(departments.find(d => d.id == e.target.value),
-                                console.log(department.id)
-                            )}}
+                            id="departments"
+                            multiple
+                            value={departmentsId}
+                            label="departments"
+                            onChange={
+                                e => {
+                                    setDepartmentsId([...e.target.value])
+                                    setDepartments(departmentsList.map(d => {departmentsId.includes(d.id) ? d.name : null}))
+                                }
+                            }
+                            renderValue={(selected) => (
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                  {selected.map((value) => (
+                                    <Chip key={value} label={departmentsList.find(d => d.id == value).name} />
+                                  ))}
+                                </Box>
+                              )}
                         >
-                            {departments.map(d => (
+                            {departmentsList.map(d => (
                                 <MenuItem key={d.id} value={d.id}>{d.name}</MenuItem>
                             )
                             )}

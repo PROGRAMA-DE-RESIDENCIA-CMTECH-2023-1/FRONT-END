@@ -2,7 +2,7 @@ import './Lists.css'
 import React, { useContext, useEffect, useState } from 'react';
 import Header from "../components/Header";
 import AddButton from '../components/AddButton';
-import { TextField } from '@mui/material';
+import { TextField, Box, Chip } from '@mui/material';
 import InputUser from '../components/InputUser';
 import Copyright from "../components/Copyright";
 import UpdateButton from '../components/UpdateButton';
@@ -22,7 +22,7 @@ const ListsUser = () => {
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)
     const [userData, setUserData] = useState(
-        {id: 0, name: '', profile: {id: 0, name: ''}, department: {id: 0, name: ''}, org: {id: 0, name: ''}, online:''}
+        { id: 0, name: '', profile: '', profileId: 0, departments: [], departmentsId: [], org: { id: 0, name: '' }, online: '' }
     )
     const [users, setUsers] = useState([])
     const { openSnack, token } = useContext(TokenContext)
@@ -45,7 +45,9 @@ const ListsUser = () => {
             id: usuario.id,
             name: usuario.name,
             profile: usuario.profile,
-            department: usuario.department,
+            profileId: usuario.profileId,
+            departments: usuario.departments,
+            departmentsId: usuario.departmentsId,
             org: usuario.org
         })
         setOpenUpdate(true);
@@ -55,9 +57,11 @@ const ListsUser = () => {
         setUserData({
             id: 0,
             name: '',
-            profile: {id: 0, name: ''},
-            department: {id: 0, name: ''},
-            org: {id: 0, name: ''},
+            profile: '',
+            profileId: 0,
+            departments: [],
+            departmentsId: [],
+            org: { id: 0, name: '' },
         })
         setOpenUpdate(false);
     };
@@ -67,7 +71,9 @@ const ListsUser = () => {
             id: usuario.id,
             name: usuario.name,
             profile: usuario.profile,
-            department: usuario.department,
+            profileId: usuario.profileId,
+            departments: usuario.departments,
+            departmentsId: usuario.departmentsId,
             org: usuario.org
         })
         setOpenDelete(true)
@@ -77,9 +83,11 @@ const ListsUser = () => {
         setUserData({
             id: 0,
             name: '',
-            profile: {id: 0, name: ''},
-            department: {id: 0, name: ''},
-            org: {id: 0, name: ''},
+            departments: [],
+            departmentsId: [],
+            profile: '',
+            profileId: 0,
+            org: { id: 0, name: '' },
         })
         setOpenDelete(false)
     }
@@ -116,12 +124,13 @@ const ListsUser = () => {
         })
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         api.get("User", config).then(response => {
             setUsers(response.data)
         }).catch(error => {
             openSnack(error.message)
         })
+        console.log(users)
     }, [])
 
     const filtrarUsuarios = usuario => {
@@ -149,7 +158,7 @@ const ListsUser = () => {
                 handleConfirm={postUser}
                 config={config}
                 btnName="Adicionar"
-                id={0} name="" profile={{id: 0, name: ""}} department={{id: 0, name: ""}} org={{id: 0, name: ""}}
+                id={0} name="" profile="" profileId={0} departments={[]} departmentsId={[]} org={{ id: 0, name: "" }}
             />
             <InputUser
                 open={openUpdate}
@@ -157,7 +166,8 @@ const ListsUser = () => {
                 handleConfirm={putUser}
                 config={config}
                 btnName="Atualizar"
-                id={userData.id} name={userData.name} profile={userData.profile} department={userData.department} org={userData.org}
+                id={userData.id} name={userData.name} profile={userData.profile} profileId={userData.profileId}
+                departments={userData.departments} departmentsId={userData.departmentsId} org={userData.org}
             />
             <DeleteDialog
                 open={openDelete}
@@ -202,8 +212,14 @@ const ListsUser = () => {
                         {usuariosFiltrados.map(usuario => (
                             <tr key={usuario.id}>
                                 <td>{usuario.name}</td>
-                                <td>{usuario.profile?.name ?? ''}</td>
-                                <td>{usuario.department?.name ?? ''}</td>
+                                <td>{usuario.profile ?? ''}</td>
+                                <td>
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                        {usuario.departments.map(d => (
+                                            <Chip key={d} label={d} />
+                                        ))}
+                                    </Box>
+                                </td>
                                 <td >
                                     <div>
                                         <span className={usuario.online ? 'online' : 'offline'}></span>
@@ -215,7 +231,7 @@ const ListsUser = () => {
                                         <UpdateButton
                                             handleClickOpen={_ => handleClickOpenUpdate(usuario)}
                                         />
-                                        
+
                                         <DeleteButton
                                             handleClickOpen={_ => handleClickOpenDelete(usuario)}
                                         />
