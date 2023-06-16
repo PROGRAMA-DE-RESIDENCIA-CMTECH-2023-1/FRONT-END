@@ -86,7 +86,7 @@ const ListsDepartament = () => {
 
     async function putDepartment(newDepartment) {
         await api.put("Department", newDepartment, config).then(response => {
-            const filterDepartments = departments.filter(d => d != response.data.id)
+            const filterDepartments = departments.filter(d => d.id != response.data.id)
             setDepartments([...filterDepartments, response.data])
         }).catch(error => {
             openSnack(error.message)
@@ -94,7 +94,6 @@ const ListsDepartament = () => {
     }
 
     async function deleteDepartment(departmentId) {
-        console.log(departmentId)
         await api.delete("Department", {
             headers: {
                 Authorization: `bearer ${token}`
@@ -139,7 +138,7 @@ const ListsDepartament = () => {
                 handleConfirm={postDepartment}
                 config={config}
                 btnName="Adicionar"
-                id={0} name="" org={{id: 0, name: ""}}
+                id={0} name="" org={departmentData.org} org_id={departmentData.org_id}
             />
             <InputDepartment
                 open={openUpdate}

@@ -66,9 +66,12 @@ const InputDepartment = (props) => {
                         <Select
                             labelId="org-label"
                             id="org"
-                            value={org && org?.id != 0 ? org?.id : ''}
+                            value={org && org_id != 0 ? org_id : ''}
                             label="org"
-                            onChange={e =>setOrg(org.find(d => d.id == e.target.value))}
+                            onChange={e => {
+                                setOrgId(e.target.value)
+                                setOrg(orgs.find(d => d.id == e.target.value).name)
+                            }}
                         >
                             {orgs.map(d => (
                                 <MenuItem key={d.id} value={d.id}>{d.name}</MenuItem>

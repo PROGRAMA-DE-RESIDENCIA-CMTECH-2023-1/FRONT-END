@@ -22,7 +22,7 @@ const ListsUser = () => {
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)
     const [userData, setUserData] = useState(
-        { id: 0, name: '', profile: '', profileId: 0, departments: [], departmentsId: [], org: { id: 0, name: '' }, online: '' }
+        { id: 0, name: '', profile: '', profileId: 0, departments: [], departmentsId: [], org: '' , orgId: 0, online: '' }
     )
     const [users, setUsers] = useState([])
     const { openSnack, token } = useContext(TokenContext)
@@ -48,7 +48,8 @@ const ListsUser = () => {
             profileId: usuario.profileId,
             departments: usuario.departments,
             departmentsId: usuario.departmentsId,
-            org: usuario.org
+            org: usuario.org,
+            orgId: usuario.orgId
         })
         setOpenUpdate(true);
     };
@@ -61,7 +62,8 @@ const ListsUser = () => {
             profileId: 0,
             departments: [],
             departmentsId: [],
-            org: { id: 0, name: '' },
+            org: '' ,
+            orgId: 0
         })
         setOpenUpdate(false);
     };
@@ -74,7 +76,8 @@ const ListsUser = () => {
             profileId: usuario.profileId,
             departments: usuario.departments,
             departmentsId: usuario.departmentsId,
-            org: usuario.org
+            org: usuario.org,
+            orgId: usuario.orgId
         })
         setOpenDelete(true)
     }
@@ -87,7 +90,8 @@ const ListsUser = () => {
             departmentsId: [],
             profile: '',
             profileId: 0,
-            org: { id: 0, name: '' },
+            org: '' ,
+            orgId: 0
         })
         setOpenDelete(false)
     }
@@ -130,7 +134,6 @@ const ListsUser = () => {
         }).catch(error => {
             openSnack(error.message)
         })
-        console.log(users)
     }, [])
 
     const filtrarUsuarios = usuario => {
@@ -158,7 +161,7 @@ const ListsUser = () => {
                 handleConfirm={postUser}
                 config={config}
                 btnName="Adicionar"
-                id={0} name="" profile="" profileId={0} departments={[]} departmentsId={[]} org={{ id: 0, name: "" }}
+                id={0} name="" profile="" profileId={0} departments={[]} departmentsId={[]} org=""  orgId={0}
             />
             <InputUser
                 open={openUpdate}
@@ -167,7 +170,7 @@ const ListsUser = () => {
                 config={config}
                 btnName="Atualizar"
                 id={userData.id} name={userData.name} profile={userData.profile} profileId={userData.profileId}
-                departments={userData.departments} departmentsId={userData.departmentsId} org={userData.org}
+                departments={userData.departments} departmentsId={userData.departmentsId} org={userData.org} orgId={userData.orgId}
             />
             <DeleteDialog
                 open={openDelete}
@@ -216,7 +219,7 @@ const ListsUser = () => {
                                 <td>
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                         {usuario.departments.map(d => (
-                                            <Chip key={d} label={d} />
+                                            <Chip key={"d"+d} label={d} />
                                         ))}
                                     </Box>
                                 </td>

@@ -21,6 +21,7 @@ const InputUser = (props) => {
     const [departments, setDepartments] = useState(props.departments)
     const [departmentsId, setDepartmentsId] = useState(props.departmentsId)
     const [org, setOrg] = useState(props.org)
+    const [orgId, setOrgId] = useState(props.orgId)
     const [profiles, setProfiles] = useState([])
     const [departmentsList, setDepartmentsList] = useState([])
     const [orgs, setOrgs] = useState([])
@@ -40,12 +41,11 @@ const InputUser = (props) => {
             profile: profile,
             departmentsId: departmentsId,
             departments: departments,
-            orgId: org.id,
-            org: org.name
+            orgId: orgId,
+            org: org
         }
-        console.log(newUser)
-        //props.handleConfirm(newUser)
-        //props.handleClose()
+        props.handleConfirm(newUser)
+        props.handleClose()
     }
 
     useEffect(() => {
@@ -137,9 +137,12 @@ const InputUser = (props) => {
                         <Select
                             labelId="org-label"
                             id="org"
-                            value={org && org?.id != 0 ? org?.id : ''}
-                            label="department"
-                            onChange={e => setOrg(orgs.find(o => o.id == e.target.value))}
+                            value={org && orgId != 0 ? orgId : ''}
+                            label="org"
+                            onChange={e => {
+                                setOrgId(e.target.value)
+                                setOrg(orgs.find(o => o.id == e.target.value).name)
+                            }}
                         >
                             {orgs.map(o => (
                                 <MenuItem key={o.id} value={o.id}>{o.name}</MenuItem>
