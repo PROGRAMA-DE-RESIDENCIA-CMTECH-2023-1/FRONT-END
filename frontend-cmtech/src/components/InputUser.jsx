@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import InputButton from "./InputButton";
 import { api } from '../libs/Api';
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { OutlinedInput , FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 /* Área de criar Usuários*/
 
@@ -16,7 +16,7 @@ const InputUser = (props) => {
 
     const [id, setId] = useState(props.id)
     const [name, setName] = useState(props.name)
-    const [profile, setProfile] = useState(props.profile)
+    const [profile, setProfile] = useState(props.profile) 
     const [department, setDepartment] = useState(props.department)
     const [org, setOrg] = useState(props.org)
     const [profiles, setProfiles] = useState([])
@@ -62,6 +62,7 @@ const InputUser = (props) => {
         })
         api.get("Org", props.config).then(response => {
             setOrgs(response.data)
+            
         })
     }, [])
 
@@ -118,6 +119,26 @@ const InputUser = (props) => {
                         <InputLabel id="org-label">Organização</InputLabel>
                         <Select
                             labelId="org-label"
+                            id="org" multiple
+                            value={org && org.length > 0 ? org.map(o => o.id) : []}
+                            label="org"
+                            onChange={(e) => {
+                                setOrg(orgs.find((o) => o.id == e.target.value));
+                                console.log(orgs.find((o) => o.id == e.target.value));
+                            }}
+                            >
+                            {orgs.map((o) => (
+                                <MenuItem key={o.id} value={o.id}>
+                                {o.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                  {/*   <FormControl fullWidth sx={{ marginTop: 4 }}>
+                        <InputLabel id="org-label">Organização</InputLabel>
+                        <Select
+                            labelId="org-label"
                             id="org"
                             value={org && org?.id != 0 ? org?.id : ''}
                             label="department"
@@ -128,7 +149,7 @@ const InputUser = (props) => {
                             )
                             )}
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
 
                 </DialogContent>
                 <DialogActions>

@@ -194,6 +194,7 @@ const ListsUser = () => {
                             <th>Nome</th>
                             <th>Perfil</th>
                             <th>Departamento</th>
+                            <th>Org</th>
                             <th>status</th>
                             <th></th>
                         </tr>
@@ -204,6 +205,7 @@ const ListsUser = () => {
                                 <td>{usuario.name}</td>
                                 <td>{usuario.profile?.name ?? ''}</td>
                                 <td>{usuario.department?.name ?? ''}</td>
+                                <td>{usuario.org?.name ?? ''}</td>
                                 <td >
                                     <div>
                                         <span className={usuario.online ? 'online' : 'offline'}></span>
